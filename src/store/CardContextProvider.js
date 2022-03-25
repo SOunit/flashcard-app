@@ -8,6 +8,7 @@ const initialCardState = {
 const cardReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CARD":
+      console.log(action.payload.card);
       const newCard = action.payload.card;
       return {
         cards: [newCard, ...state.cards],

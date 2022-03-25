@@ -5,6 +5,7 @@ import CardContextProvider from "./store/CardContextProvider";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import CreateCard from "./pages/CreateCard";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/new" element={<CreateCard />} />
           </Routes>
         </Router>
       </CardContextProvider>

@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../store/UserContext";
 
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import PrimaryButton from "../components/UI/PrimaryButton";
 
 const Login = () => {
   const [inputUsername, setInputUsername] = useState("");
@@ -12,13 +12,13 @@ const Login = () => {
   const { dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const loginHandler = () => {
+  const loginHandler = useCallback(() => {
     dispatch({
       type: "LOGIN_USER",
       payload: { username: inputUsername, password: inputPassword },
     });
     navigate("/");
-  };
+  }, [inputUsername, inputPassword]);
 
   return (
     <div>
@@ -44,9 +44,7 @@ const Login = () => {
           setInputPassword(e.target.value);
         }}
       />
-      <Button variant="contained" onClick={loginHandler}>
-        Login
-      </Button>
+      <PrimaryButton onClick={loginHandler}>Login</PrimaryButton>
     </div>
   );
 };
