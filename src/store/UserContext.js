@@ -5,5 +5,4 @@ const UserContext = React.createContext({
   password: "",
 });
 
-export const UserContext;
-
+export default UserContext;
