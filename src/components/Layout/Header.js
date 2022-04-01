@@ -39,9 +39,14 @@ const Header = () => {
               Login
             </Button>
           ) : (
-            <Button color="inherit" onClick={logoutHandler}>
-              Logout
-            </Button>
+            <>
+              <Button color="inherit" onClick={() => navigate("/cards")}>
+                Cards
+              </Button>
+              <Button color="inherit" onClick={logoutHandler}>
+                Logout
+              </Button>
+            </>
           )}
         </Toolbar>
       </AppBar>

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -40,7 +40,7 @@ const CreateCard = () => {
       setExample("");
       setComment("");
       setLevel("");
-      navigate("/");
+      navigate("/cards");
     },
     [card]
   );
@@ -94,13 +94,14 @@ const CreateCard = () => {
           autoWidth
           label="Level"
         >
-          <MenuItem value={4}>Critical</MenuItem>
-          <MenuItem value={3}>High</MenuItem>
-          <MenuItem value={2}>Normal</MenuItem>
-          <MenuItem value={1}>Low</MenuItem>
+          <MenuItem value={"Critical"}>Critical</MenuItem>
+          <MenuItem value={"High"}>High</MenuItem>
+          <MenuItem value={"Normal"}>Normal</MenuItem>
+          <MenuItem value={"Low"}>Low</MenuItem>
         </Select>
       </FormControl>
       <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
+      <Link to="/">Go back</Link>
     </>
   );
 };
