@@ -16,6 +16,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch({ type: "LOGOUT_USER" });
+    navigate("/");
   };
 
   return (
@@ -39,14 +40,9 @@ const Header = () => {
               Login
             </Button>
           ) : (
-            <>
-              <Button color="inherit" onClick={() => navigate("/cards")}>
-                Cards
-              </Button>
-              <Button color="inherit" onClick={logoutHandler}>
-                Logout
-              </Button>
-            </>
+            <Button color="inherit" onClick={logoutHandler}>
+              Logout
+            </Button>
           )}
         </Toolbar>
       </AppBar>
