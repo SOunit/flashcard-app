@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import CardContext from "../store/CardContext";
+import React, { useEffect } from "react";
+import useHttp from "../hooks/use-http";
+import { getCards } from "../api/api";
 import { Link } from "react-router-dom";
 
 import Layout from "../components/Layout/Layout";
@@ -7,13 +8,44 @@ import CardList from "../components/cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
 
 const AllCards = () => {
-  const { cardState } = useContext(CardContext);
-  console.log(cardState.cards);
+  const {
+    sendRequest,
+    data: loadedCards,
+    error,
+    status,
+  } = useHttp(getCards, true);
+
+  useEffect(() => {
+    sendRequest();
+  }, [sendRequest]);
+
+  let content;
+  if (status === "pending") {
+    content = (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  if (error) {
+    content = { error };
+  }
+
+  if (status === "completed" && (!loadedCards || loadedCards.length === 0)) {
+    content = (
+      <div>
+        <h1>No cards found</h1>
+      </div>
+    );
+  }
+
+  content = <CardList cards={loadedCards} />;
 
   return (
     <Layout>
       <CreateCardButton />
-      <CardList cards={cardState.cards} />
+      {content}
       <Link to="/">Go back</Link>
     </Layout>
   );
