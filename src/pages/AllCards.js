@@ -3,8 +3,7 @@ import useHttp from "../hooks/use-http";
 import { getCards } from "../api/api";
 import { Link } from "react-router-dom";
 
-import Layout from "../components/Layout/Layout";
-import CardList from "../components/cards/CardList";
+import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
 
 const AllCards = () => {
@@ -43,11 +42,11 @@ const AllCards = () => {
   content = <CardList cards={loadedCards} />;
 
   return (
-    <Layout>
+    <>
       <CreateCardButton />
       {content}
       <Link to="/">Go back</Link>
-    </Layout>
+    </>
   );
 };
 
