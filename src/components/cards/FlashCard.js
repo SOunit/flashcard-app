@@ -1,20 +1,30 @@
 import React, { useState } from "react";
+import useHttp from "../../hooks/use-http";
+import { deleteCard } from "../../api/api";
+import { Link } from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import PrimaryButton from "../UI/PrimaryButton";
+import EditCard from "../cards/EditCard";
 
-const FlashCard = ({ front, back, example, comment, level }) => {
+const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   const [isBack, setIsBack] = useState(false);
+  const { sendRequest } = useHttp(deleteCard, true);
 
   const cardFlipHandler = () => {
     setIsBack(!isBack);
   };
 
+  const deleteHandler = cardId => {
+    sendRequest(cardId);
+  };
+
   return (
-    <Card sx={{ minWidth: 275, margin: "15px" }} onClick={cardFlipHandler}>
+    <Card sx={{ minWidth: 275, margin: "15px" }}>
       {!isBack ? (
-        <CardContent>
+        <CardContent onClick={cardFlipHandler}>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {level}
           </Typography>
@@ -22,7 +32,7 @@ const FlashCard = ({ front, back, example, comment, level }) => {
           <Typography variant="body2">{example}</Typography>
         </CardContent>
       ) : (
-        <CardContent>
+        <CardContent onClick={cardFlipHandler}>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {level}
           </Typography>
@@ -30,6 +40,14 @@ const FlashCard = ({ front, back, example, comment, level }) => {
           <Typography variant="body2">{comment}</Typography>
         </CardContent>
       )}
+
+      <Link to={`/cards/${cardId}/edit`}>
+        <PrimaryButton>EDIT</PrimaryButton>
+      </Link>
+
+      <PrimaryButton onClick={() => deleteHandler(cardId)}>
+        DELETE
+      </PrimaryButton>
     </Card>
   );
 };
