@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useHttp from "../hooks/use-http";
-import { getSingleCard } from "../api/api";
-import { updateCard } from "../api/api";
+import { getSingleCard, updateCard } from "../api/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
@@ -14,11 +13,11 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 const EditCard = () => {
   const cardId = useParams().cid;
   const navigate = useNavigate();
-  const { sendRequest: setCard, data: loadedCard } = useHttp(
+  const { sendRequest: setCardRequest, data: loadedCard } = useHttp(
     getSingleCard,
     true
   );
-  const { sendRequest: saveCard } = useHttp(updateCard, true);
+  const { sendRequest: saveCardRequest } = useHttp(updateCard, true);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -27,8 +26,8 @@ const EditCard = () => {
   const [level, setLevel] = useState("");
 
   useEffect(() => {
-    setCard(cardId);
-  }, [setCard]);
+    setCardRequest(cardId);
+  }, [setCardRequest]);
 
   useEffect(() => {
     setFront(loadedCard?.front);
@@ -49,7 +48,7 @@ const EditCard = () => {
 
   const updateHandler = (id, cardData) => {
     console.log("updatedHandler", id, cardData);
-    saveCard(id, cardData);
+    saveCardRequest(id, cardData);
     navigate("/cards");
   };
 

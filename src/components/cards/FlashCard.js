@@ -7,18 +7,26 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import PrimaryButton from "../UI/PrimaryButton";
-import EditCard from "../cards/EditCard";
 
-const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
+const FlashCard = ({
+  id: cardId,
+  front,
+  back,
+  example,
+  comment,
+  level,
+  onForceUpdate,
+}) => {
   const [isBack, setIsBack] = useState(false);
-  const { sendRequest } = useHttp(deleteCard, true);
+  const { sendRequest: deleteCardRequest } = useHttp(deleteCard, true);
 
   const cardFlipHandler = () => {
     setIsBack(!isBack);
   };
 
   const deleteHandler = cardId => {
-    sendRequest(cardId);
+    deleteCardRequest(cardId);
+    onForceUpdate();
   };
 
   return (

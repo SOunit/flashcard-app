@@ -17,7 +17,7 @@ export const getCards = async () => {
       ...data[key],
     };
 
-    loadedCards.push(cardObj);
+    loadedCards.unshift(cardObj);
   }
 
   return loadedCards;
