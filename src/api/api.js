@@ -23,6 +23,22 @@ export const getCards = async () => {
   return loadedCards;
 };
 
+export const getSingleCard = async cardId => {
+  const response = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch the card");
+  }
+
+  const loadedCard = {
+    id: cardId,
+    ...data,
+  };
+
+  return loadedCard;
+};
+
 export const addCard = async cardData => {
   const request = await fetch(`${FIREBASE_DOMAIN}/cards.json`, {
     method: "POST",
@@ -35,6 +51,40 @@ export const addCard = async cardData => {
 
   if (!request.ok) {
     throw new Error(data.message || "Failed to add a new card");
+  }
+
+  return null;
+};
+
+export const deleteCard = async cardId => {
+  const request = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
+    method: "DELETE",
+    body: JSON.stringify(cardId),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await request.json();
+
+  if (!request.ok) {
+    throw new Error(data.message || "Failed to delete the card");
+  }
+
+  return null;
+};
+
+export const updateCard = async (cardId, cardData) => {
+  const request = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
+    method: "PATCH",
+    body: JSON.stringify(cardData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await request.data;
+
+  if (!request.ok) {
+    throw new Error(data.message || "Failed to edit the card");
   }
 
   return null;
