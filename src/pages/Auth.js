@@ -9,7 +9,9 @@ const Auth = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const [inputUsername, setInputUsername] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+  const [isLoginMode, setIsLoginMode] = useState(true);
 
   const loginHandler = event => {
     event.preventDefault();
@@ -17,18 +19,36 @@ const Auth = () => {
     navigate("/home");
   };
 
+  const modeChangeHandler = () => {
+    setIsLoginMode(prevMode => !prevMode);
+  };
+
   return (
     <div>
       <h1>Login Required</h1>
+      {!isLoginMode && (
+        <TextField
+          required
+          id="standard-required"
+          label="Username"
+          type="text"
+          variant="standard"
+          onChange={e => {
+            setInputUsername(e.target.value);
+          }}
+          sx={{ m: "12px" }}
+        />
+      )}
       <TextField
         required
         id="standard-required"
-        label="User name"
-        type="text"
+        label="Email"
+        type="email"
         variant="standard"
         onChange={e => {
-          setInputUsername(e.target.value);
+          setInputEmail(e.target.value);
         }}
+        sx={{ m: "12px" }}
       />
       <TextField
         required
@@ -40,10 +60,21 @@ const Auth = () => {
         onChange={e => {
           setInputPassword(e.target.value);
         }}
+        sx={{ m: "12px" }}
       />
-      <PrimaryButton onClick={loginHandler}>Login</PrimaryButton>
-      <p>You don't have an account?</p>
-      <PrimaryButton>Sign Up</PrimaryButton>
+      {isLoginMode ? (
+        <>
+          <PrimaryButton onClick={loginHandler}>Login</PrimaryButton>
+          <p>You don't have an account?</p>
+          <PrimaryButton onClick={modeChangeHandler}>Sign Up</PrimaryButton>
+        </>
+      ) : (
+        <>
+          <PrimaryButton onClick={loginHandler}>SignUp</PrimaryButton>
+          <p>You already have an account?</p>
+          <PrimaryButton onClick={modeChangeHandler}>Login</PrimaryButton>
+        </>
+      )}
     </div>
   );
 };
