@@ -87,11 +87,13 @@ const InputForm = ({
   );
 
   return !inputState.isValid && inputState.isTouched ? (
-    <FormControl variant="standard" error>
+    <FormControl variant="standard" error sx={{ m: "0 12px" }}>
       {inputContent}
     </FormControl>
   ) : (
-    <FormControl variant="standard">{inputContent}</FormControl>
+    <FormControl variant="standard" sx={{ m: "0 12px" }}>
+      {inputContent}
+    </FormControl>
   );
 };
 
