@@ -1,28 +1,25 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../store/UserContext";
 
 import TextField from "@mui/material/TextField";
 import PrimaryButton from "../components/UI/PrimaryButton";
 
-const Login = () => {
+const Auth = () => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
-  const { dispatch } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const loginHandler = useCallback(() => {
-    dispatch({
-      type: "LOGIN_USER",
-      payload: { username: inputUsername, password: inputPassword },
-    });
-    navigate("/");
-  }, [inputUsername, inputPassword]);
+  const loginHandler = event => {
+    event.preventDefault();
+    auth.login();
+    navigate("/home");
+  };
 
   return (
     <div>
-      <h1>Log in</h1>
+      <h1>Login Required</h1>
       <TextField
         required
         id="standard-required"
@@ -45,8 +42,10 @@ const Login = () => {
         }}
       />
       <PrimaryButton onClick={loginHandler}>Login</PrimaryButton>
+      <p>You don't have an account?</p>
+      <PrimaryButton>Sign Up</PrimaryButton>
     </div>
   );
 };
 
-export default Login;
+export default Auth;
