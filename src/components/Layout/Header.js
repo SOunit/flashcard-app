@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import UserContext from "../../store/UserContext";
+import { AuthContext } from "../../context/auth-context";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,12 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
-  const { userState, dispatch } = useContext(UserContext);
-  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const logoutHandler = () => {
-    dispatch({ type: "LOGOUT_USER" });
-    navigate("/");
+    auth.logout();
   };
 
   return (
@@ -33,13 +30,9 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Hello! {userState.username}
+            Welcome!
           </Typography>
-          {userState.username === "guest" ? (
-            <Button color="inherit" onClick={() => navigate("/login")}>
-              Login
-            </Button>
-          ) : (
+          {auth.isLoggedIn && (
             <Button color="inherit" onClick={logoutHandler}>
               Logout
             </Button>
