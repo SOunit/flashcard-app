@@ -3,7 +3,7 @@ import useHttp from "../hooks/use-http";
 import { getCards } from "../api/api";
 import { Link } from "react-router-dom";
 
-import CardList from "../components/cards/CardList";
+import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
 
 const AllCards = () => {

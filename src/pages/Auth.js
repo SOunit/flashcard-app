@@ -2,16 +2,26 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
 
-import TextField from "@mui/material/TextField";
+import {
+  VALIDATOR_REQUIRE,
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+} from "../util/validators";
+import { useForm } from "../hooks/use-form";
+import InputForm from "../components/FormElements/InputForm";
 import PrimaryButton from "../components/UI/PrimaryButton";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      email: { value: "", isValid: false },
+      password: { value: "", isValid: false },
+    },
+    false
+  );
 
   const loginHandler = event => {
     event.preventDefault();
@@ -20,6 +30,23 @@ const Auth = () => {
   };
 
   const modeChangeHandler = () => {
+    if (!isLoginMode) {
+      setFormData(
+        {
+          ...formState.inputs,
+          username: undefined,
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          username: { value: "", isValid: false },
+        },
+        false
+      );
+    }
     setIsLoginMode(prevMode => !prevMode);
   };
 
@@ -27,40 +54,30 @@ const Auth = () => {
     <div>
       <h1>Login Required</h1>
       {!isLoginMode && (
-        <TextField
-          required
-          id="standard-required"
+        <InputForm
+          id="username"
           label="Username"
           type="text"
-          variant="standard"
-          onChange={e => {
-            setInputUsername(e.target.value);
-          }}
-          sx={{ m: "12px" }}
+          errorText="Username is required"
+          validators={[VALIDATOR_REQUIRE()]}
+          onInput={inputHandler}
         />
       )}
-      <TextField
-        required
-        id="standard-required"
+      <InputForm
+        id="email"
         label="Email"
         type="email"
-        variant="standard"
-        onChange={e => {
-          setInputEmail(e.target.value);
-        }}
-        sx={{ m: "12px" }}
+        errorText="Seems like invalid email"
+        validators={[VALIDATOR_EMAIL()]}
+        onInput={inputHandler}
       />
-      <TextField
-        required
-        id="standard-password-input"
+      <InputForm
+        id="password"
         label="Password"
         type="password"
-        autoComplete="current-password"
-        variant="standard"
-        onChange={e => {
-          setInputPassword(e.target.value);
-        }}
-        sx={{ m: "12px" }}
+        errorText="Password should be over 6 letters"
+        validators={[VALIDATOR_MINLENGTH(6)]}
+        onInput={inputHandler}
       />
       {isLoginMode ? (
         <>
