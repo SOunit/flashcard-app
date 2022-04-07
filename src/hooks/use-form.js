@@ -10,9 +10,9 @@ const formReducer = (state, action) => {
         }
 
         if (inputId === action.id) {
-          formIsValid = formIsValid || action.isValid;
+          formIsValid = formIsValid && action.isValid;
         } else {
-          formIsValid = formIsValid || state.inputs[inputId].isValid;
+          formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
 

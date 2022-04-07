@@ -9,6 +9,7 @@ import {
 } from "../util/validators";
 import { useForm } from "../hooks/use-form";
 import InputForm from "../components/FormElements/InputForm";
+import FormButton from "../components/FormElements/FormButton";
 import PrimaryButton from "../components/UI/PrimaryButton";
 
 const Auth = () => {
@@ -75,23 +76,18 @@ const Auth = () => {
         id="password"
         label="Password"
         type="password"
-        errorText="Password should be over 6 letters"
+        errorText="Password should be min 6 letters"
         validators={[VALIDATOR_MINLENGTH(6)]}
         onInput={inputHandler}
       />
-      {isLoginMode ? (
-        <>
-          <PrimaryButton onClick={loginHandler}>Login</PrimaryButton>
-          <p>You don't have an account?</p>
-          <PrimaryButton onClick={modeChangeHandler}>Sign Up</PrimaryButton>
-        </>
-      ) : (
-        <>
-          <PrimaryButton onClick={loginHandler}>SignUp</PrimaryButton>
-          <p>You already have an account?</p>
-          <PrimaryButton onClick={modeChangeHandler}>Login</PrimaryButton>
-        </>
-      )}
+
+      <FormButton onClick={loginHandler} disabled={!formState.isValid}> 
+        {isLoginMode ? "LOGIN" : "SIGNUP"}
+      </FormButton>
+      <p>You don't have an account?</p>
+      <PrimaryButton onClick={modeChangeHandler}>
+        {isLoginMode ? "SIGNUP" : "LOGIN"}
+      </PrimaryButton>
     </div>
   );
 };
