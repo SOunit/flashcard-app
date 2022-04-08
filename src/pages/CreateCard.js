@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { CardContext } from "../context";
+import { CardContext } from "../context/card-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";

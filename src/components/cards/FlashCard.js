@@ -5,25 +5,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import PrimaryButton from "../UI/PrimaryButton";
-import { CardContext } from "../../context";
+import { CardContext } from "../../context/card-context";
 
-const FlashCard = ({
-  id: cardId,
-  front,
-  back,
-  example,
-  comment,
-  level
-}) => {
+const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   const [isBack, setIsBack] = useState(false);
-  const { dispatch} = useContext(CardContext);
+  const { dispatch } = useContext(CardContext);
 
   const cardFlipHandler = () => {
     setIsBack(!isBack);
   };
 
   const deleteHandler = cardId => {
-    dispatch({ type: "DELETE_CARD", payload: cardId })
+    dispatch({ type: "DELETE_CARD", payload: cardId });
   };
 
   return (

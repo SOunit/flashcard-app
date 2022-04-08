@@ -2,13 +2,12 @@ import React from "react";
 import FlashCard from "./FlashCard";
 
 const CardList = ({ cards }) => {
+  console.log(cards);
   if (!cards || cards.length === 0) {
     return <div>No cards yet</div>;
   }
 
-  return cards.map(card => (
-    <FlashCard key={card.id} {...card} />
-  ));
+  return cards && cards.map(card => <FlashCard key={card.id} {...card} />);
 };
 
 export default CardList;

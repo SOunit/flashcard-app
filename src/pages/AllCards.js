@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
-import { CardContext } from "../context";
+import { CardContext } from "../context/card-context";
 
 const AllCards = () => {
   const {
@@ -14,14 +14,13 @@ const AllCards = () => {
   } = useContext(CardContext);
 
   useEffect(() => {
-    if(!loadedCards){
-      dispatch({ type: "GET_ALL_CARDS" })
+    if (!loadedCards) {
+      dispatch({ type: "GET_ALL_CARDS" });
     }
   }, []);
 
   let content;
   if (status === "pending") {
-    
     content = (
       <div>
         <h1>Loading...</h1>
