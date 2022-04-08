@@ -42,6 +42,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/auth" />} />
         <Route path="/home" element={<Navigate to="/auth" />} />
+        <Route path="/cards/*" element={<Navigate to="/auth" />} />
         <Route path="/auth" element={<Auth />} />
       </Routes>
     );
