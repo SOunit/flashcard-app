@@ -1,26 +1,35 @@
-import { useReducer, useCallback } from "react";
+import { useState, useReducer, useCallback, useEffect, Context, createContext } from "react";
+
+
+const CardContext = createContext()
 
 const httpReducer = (state, action) => {
   switch (action.type) {
     case "SEND":
       return {
-        data: null,
-        error: null,
+        ...state,
         status: "pending",
       };
 
     case "SUCCESS":
       return {
+        ...state,
         data: action.responseData,
-        error: null,
         status: "completed",
       };
 
     case "ERROR":
       return {
-        data: null,
+        ...state,
         error: action.errorMessage,
-        status: "completed",
+        status: "error",
+      };
+
+    case "DELETE":
+      return {
+        ...state,
+        data: state.data.filter(item => item.id !== action.payload),
+        status: "deleted",
       };
 
     default:
@@ -28,12 +37,23 @@ const httpReducer = (state, action) => {
   }
 };
 
-const useHttp = (requestFunction, startWithPending = false) => {
-  const [httpState, dispatch] = useReducer(httpReducer, {
+export const CardProvider = ({ children }) => {
+  const [startWithPending, setStartWithPending] = useState(false)
+  const [requestFunction, setRequestFunction] = useState(null)
+  const initialState = {
     data: null,
     error: null,
     status: startWithPending ? "pending" : null,
-  });
+  };
+
+  // const initializer = (initialValue = initialState) => JSON.parse(localStorage.getItem("localCard")) || initialValue;
+
+  const [httpState, dispatch] = useReducer(httpReducer, initialState);
+
+  // useEffect(() => {
+  //   console.log("Cart updated, persisting to local storage", httpState);
+  //   localStorage.setItem("localCard", JSON.stringify(httpState));
+  // }, [httpState]);
 
   const sendRequest = useCallback(
     async (reqData1, reqData2) => {
@@ -52,7 +72,10 @@ const useHttp = (requestFunction, startWithPending = false) => {
     [requestFunction]
   );
 
-  return { sendRequest, ...httpState };
+  // return { sendRequest, dispatch, ...httpState };
+    return(
+      <CardContext.Provider value={{ setRequestFunction, setStartWithPending, sendRequest, dispatch, ...httpState }}>
+      {children}
+      </CardContext.Provider>
+    )
 };
-
-export default useHttp;

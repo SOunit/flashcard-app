@@ -1,25 +1,27 @@
-import React, { useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { getCards } from "../api/api";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
+import { CardContext } from "../context";
 
 const AllCards = () => {
   const {
-    sendRequest,
     data: loadedCards,
     error,
     status,
-  } = useHttp(getCards, true);
+    dispatch,
+  } = useContext(CardContext);
 
   useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
+    if(!loadedCards){
+      dispatch({ type: "GET_ALL_CARDS" })
+    }
+  }, []);
 
   let content;
   if (status === "pending") {
+    
     content = (
       <div>
         <h1>Loading...</h1>
