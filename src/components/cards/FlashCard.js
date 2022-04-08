@@ -7,7 +7,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import PrimaryButton from "../UI/PrimaryButton";
-import EditCard from "./EditCard";
 
 const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   const [isBack, setIsBack] = useState(false);
