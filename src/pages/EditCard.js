@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { getSingleCard } from "../api/api";
-import { updateCard } from "../api/api";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CardContext } from "../context/card-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,11 +12,7 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 const EditCard = () => {
   const cardId = useParams().cid;
   const navigate = useNavigate();
-  const { sendRequest: setCard, data: loadedCard } = useHttp(
-    getSingleCard,
-    true
-  );
-  const { sendRequest: saveCard } = useHttp(updateCard, true);
+  const { dispatch, singleData, status } = useContext(CardContext);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -27,16 +21,16 @@ const EditCard = () => {
   const [level, setLevel] = useState("");
 
   useEffect(() => {
-    setCard(cardId);
-  }, [setCard]);
+    dispatch({ type: "GET_SINGLE_CARD", payload: cardId });
+  }, []);
 
   useEffect(() => {
-    setFront(loadedCard?.front);
-    setBack(loadedCard?.back);
-    setExample(loadedCard?.example);
-    setComment(loadedCard?.comment);
-    setLevel(loadedCard?.level);
-  }, [loadedCard]);
+    setFront(singleData?.front);
+    setBack(singleData?.back);
+    setExample(singleData?.example);
+    setComment(singleData?.comment);
+    setLevel(singleData?.level);
+  }, [singleData]);
 
   const updatedCard = {
     id: cardId,
@@ -47,10 +41,14 @@ const EditCard = () => {
     level,
   };
 
-  const updateHandler = (id, cardData) => {
-    console.log("updatedHandler", id, cardData);
-    saveCard(id, cardData);
-    navigate("/cards");
+  const updateHandler = () => {
+    dispatch({
+      type: "UPDATE_CARD",
+      payload: { id: cardId, data: updatedCard },
+    });
+    if (status === "completed") {
+      navigate("/cards");
+    }
   };
 
   return (
@@ -111,13 +109,7 @@ const EditCard = () => {
           <MenuItem value={"Low"}>Low</MenuItem>
         </Select>
       </FormControl>
-      <PrimaryButton
-        onClick={() => {
-          updateHandler(cardId, updatedCard);
-        }}
-      >
-        Save
-      </PrimaryButton>
+      <PrimaryButton onClick={updateHandler}>Save</PrimaryButton>
     </>
   );
 };

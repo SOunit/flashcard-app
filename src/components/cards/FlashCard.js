@@ -1,24 +1,22 @@
-import React, { useState } from "react";
-import useHttp from "../../hooks/use-http";
-import { deleteCard } from "../../api/api";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import PrimaryButton from "../UI/PrimaryButton";
-import EditCard from "./EditCard";
+import { CardContext } from "../../context/card-context";
 
 const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   const [isBack, setIsBack] = useState(false);
-  const { sendRequest } = useHttp(deleteCard, true);
+  const { dispatch } = useContext(CardContext);
 
   const cardFlipHandler = () => {
     setIsBack(!isBack);
   };
 
   const deleteHandler = cardId => {
-    sendRequest(cardId);
+    dispatch({ type: "DELETE_CARD", payload: cardId });
   };
 
   return (

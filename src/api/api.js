@@ -17,7 +17,7 @@ export const getCards = async () => {
       ...data[key],
     };
 
-    loadedCards.push(cardObj);
+    loadedCards.unshift(cardObj);
   }
 
   return loadedCards;
@@ -53,7 +53,7 @@ export const addCard = async cardData => {
     throw new Error(data.message || "Failed to add a new card");
   }
 
-  return null;
+  return data;
 };
 
 export const deleteCard = async cardId => {

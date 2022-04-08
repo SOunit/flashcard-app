@@ -1,7 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import useHttp from "../hooks/use-http";
-import { addCard } from "../api/api";
+import { CardContext } from "../context/card-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,7 +11,9 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 
 const CreateCard = () => {
   const navigate = useNavigate();
-  const { sendRequest, status } = useHttp(addCard, true);
+  const {
+    dispatch,
+  } = useContext(CardContext);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -28,26 +29,19 @@ const CreateCard = () => {
     level: level,
   };
 
-  useEffect(() => {
-    if (status === "completed") {
-      navigate("/cards");
-    }
-  }, [status, navigate]);
-
-  const createNewCardHandler = useCallback(
-    e => {
+  const createNewCardHandler = e => {
       e.preventDefault();
 
-      sendRequest(cardData);
+      dispatch({ type: "ADD_CARD", payload: cardData })
 
       setFront("");
       setBack("");
       setExample("");
       setComment("");
       setLevel("");
-    },
-    [cardData]
-  );
+
+      navigate("/cards");
+  };
 
   return (
     <>

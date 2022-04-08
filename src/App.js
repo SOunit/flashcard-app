@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthContext } from "./context/auth-context";
+import { CardProvider } from "./context/card-context";
 
 import Header from "./components/Layout/Header";
 import Home from "./pages/Home";
@@ -41,6 +42,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/auth" />} />
         <Route path="/home" element={<Navigate to="/auth" />} />
+        <Route path="/cards/*" element={<Navigate to="/auth" />} />
         <Route path="/auth" element={<Auth />} />
       </Routes>
     );
@@ -50,10 +52,12 @@ const App = () => {
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
-      <Header />
-      <main>
-        <Router>{routes}</Router>
-      </main>
+      <CardProvider>
+        <Header />
+        <main>
+          <Router>{routes}</Router>
+        </main>
+      </CardProvider>
     </AuthContext.Provider>
   );
 };
