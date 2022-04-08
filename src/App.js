@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import { AuthContext } from "./context/auth-context";
+import { AuthContextProvider } from "./context/auth-context";
 import { CardProvider } from "./context/card-context";
+import { AuthContext } from "./context/auth-context";
 
 import Header from "./components/Layout/Header";
 import Home from "./pages/Home";
@@ -15,50 +16,64 @@ import CreateCard from "./pages/CreateCard";
 import AllCards from "./pages/AllCards";
 import EditCard from "./pages/EditCard";
 
-const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState();
+const ProtectedRoute = ({ children }) => {
+  const { user } = useContext(AuthContext);
 
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-  }, []);
-
-  let routes;
-  if (isLoggedIn) {
-    routes = (
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/new" element={<CreateCard />} />
-        <Route path="/cards/*" element={<AllCards />} />
-        <Route path="/cards/:cid/edit" element={<EditCard />} />
-      </Routes>
-    );
-  } else {
-    routes = (
-      <Routes>
-        <Route path="/" element={<Navigate to="/auth" />} />
-        <Route path="/home" element={<Navigate to="/auth" />} />
-        <Route path="/cards/*" element={<Navigate to="/auth" />} />
-        <Route path="/auth" element={<Auth />} />
-      </Routes>
-    );
+  console.log("Check user in Private: ", user);
+  if (!user) {
+    return <Navigate to="/auth" />;
   }
 
+  return children;
+};
+
+const App = () => {
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
-    >
+    <AuthContextProvider>
       <CardProvider>
         <Header />
         <main>
-          <Router>{routes}</Router>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Navigate to="/auth" />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route
+                path="/home"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/new"
+                element={
+                  <ProtectedRoute>
+                    <CreateCard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cards/*"
+                element={
+                  <ProtectedRoute>
+                    <AllCards />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cards/:cid/edit"
+                element={
+                  <ProtectedRoute>
+                    <EditCard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </Router>
         </main>
       </CardProvider>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   );
 };
 
