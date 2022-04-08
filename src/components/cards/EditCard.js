@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import useHttp from "../../hooks/use-http";
+import React, { useState, useEffect, useContext } from "react";
 import { getSingleCard } from "../../api/api";
 import { updateCard } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { CardContext } from "../../context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,11 +13,23 @@ import PrimaryButton from "../UI/PrimaryButton";
 
 const EditCard = ({ cardId }) => {
   const navigate = useNavigate();
-  const { sendRequest: setCard, data: loadedCard } = useHttp(
-    getSingleCard,
-    true
-  );
-  const { sendRequest: saveCard } = useHttp(updateCard, true);
+  // const { sendRequest: setCard, data: loadedCard } = useHttp(
+  //   getSingleCard,
+  //   true
+  // );
+  // const { sendRequest: saveCard } = useHttp(updateCard, true);
+  const {
+    sendRequest,
+    data: loadedCard,
+    setRequestFunction,
+    setStartWithPending,
+  } = useContext(CardContext);
+
+  useEffect(() => {
+    setRequestFunction(getSingleCard)
+    setRequestFunction(updateCard)
+    setStartWithPending(true)
+  }, []);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -26,8 +38,8 @@ const EditCard = ({ cardId }) => {
   const [level, setLevel] = useState("");
 
   useEffect(() => {
-    setCard(cardId);
-  }, [setCard]);
+    sendRequest(cardId);
+  }, []);
 
   useEffect(() => {
     setFront(loadedCard?.front);
@@ -48,7 +60,7 @@ const EditCard = ({ cardId }) => {
 
   const updateHandler = (id, cardData) => {
     console.log("updatedHandler", id, cardData);
-    saveCard(id, cardData);
+    sendRequest(id, cardData);
     navigate("/cards");
   };
 
