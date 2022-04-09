@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
-  const { logOut, user, username } = useContext(AuthContext);
+  const { logOut, authUser, username } = useContext(AuthContext);
 
   const logoutHandler = async () => {
     try {
@@ -19,6 +19,7 @@ const Header = () => {
       console.log(err);
     }
   };
+  console.log("authUser on Header", authUser);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -36,7 +37,7 @@ const Header = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Welcome! {username}
           </Typography>
-          {user && (
+          {authUser && (
             <Button color="inherit" onClick={logoutHandler}>
               Logout
             </Button>

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CardContext } from "../context/card-context";
+import { AuthContext } from "../context/auth-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,9 +12,8 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 
 const CreateCard = () => {
   const navigate = useNavigate();
-  const {
-    dispatch,
-  } = useContext(CardContext);
+  const { dispatch } = useContext(CardContext);
+  const { authUser } = useContext(AuthContext);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -21,26 +21,29 @@ const CreateCard = () => {
   const [comment, setComment] = useState("");
   const [level, setLevel] = useState("");
 
+  const loginUserId = authUser.uid;
+
   const cardData = {
     front: front,
     back: back,
     example: example,
     comment: comment,
     level: level,
+    userId: loginUserId,
   };
 
   const createNewCardHandler = e => {
-      e.preventDefault();
+    e.preventDefault();
 
-      dispatch({ type: "ADD_CARD", payload: cardData })
+    dispatch({ type: "ADD_CARD", payload: cardData });
 
-      setFront("");
-      setBack("");
-      setExample("");
-      setComment("");
-      setLevel("");
+    setFront("");
+    setBack("");
+    setExample("");
+    setComment("");
+    setLevel("");
 
-      navigate("/cards");
+    navigate("/cards");
   };
 
   return (
@@ -99,7 +102,7 @@ const CreateCard = () => {
         </Select>
       </FormControl>
       <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
-      <Link to="/">Go back</Link>
+      <Link to="/home">Go back</Link>
     </>
   );
 };

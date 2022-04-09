@@ -17,10 +17,10 @@ import AllCards from "./pages/AllCards";
 import EditCard from "./pages/EditCard";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { authUser } = useContext(AuthContext);
 
-  console.log("Check user in Private: ", user);
-  if (!user) {
+  console.log("Check user in Private: ", authUser);
+  if (!authUser) {
     return <Navigate to="/auth" />;
   }
 

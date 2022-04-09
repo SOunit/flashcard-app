@@ -14,7 +14,8 @@ import GoogleButton from "react-google-button";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { logIn, signUp, googleSignIn } = useContext(AuthContext);
+  const { logIn, signUp, googleSignIn, dispatch, authUser } =
+    useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [error, setError] = useState("");
   const [formState, inputHandler, setFormData] = useForm(
@@ -49,6 +50,18 @@ const Auth = () => {
         formState.inputs.password.value,
         formState.inputs.username.value
       );
+
+      if (authUser) {
+        dispatch({
+          type: "ADD_USER",
+          payload: {
+            username: formState.inputs.username.value,
+            email: formState.inputs.email.value,
+          },
+        });
+      } else {
+        console.log("failed to add a user to db");
+      }
       navigate("/");
     } catch (err) {
       setError(err.message);
