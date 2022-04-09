@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
 import { CardContext } from "../context/card-context";
+import { AuthContext } from "../context/auth-context";
 
 const AllCards = () => {
   const {
@@ -12,12 +13,16 @@ const AllCards = () => {
     status,
     dispatch,
   } = useContext(CardContext);
+  const { authUser } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!loadedCards) {
-      dispatch({ type: "GET_ALL_CARDS" });
+    if (authUser.uid) {
+      const loginUserId = authUser.uid;
+      console.log("loginUserId", loginUserId);
+      console.log("Cards", loadedCards);
+      dispatch({ type: "GET_USER_CARDS", payload: loginUserId });
     }
-  }, []);
+  }, [authUser]);
 
   let content;
   if (status === "pending") {
@@ -46,7 +51,7 @@ const AllCards = () => {
     <>
       <CreateCardButton />
       {content}
-      <Link to="/">Go back</Link>
+      <Link to="/home">Go back</Link>
     </>
   );
 };

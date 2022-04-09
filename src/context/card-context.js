@@ -1,11 +1,12 @@
 import { useReducer, createContext } from "react";
 import {
   getCards,
+  getUserCards,
   getSingleCard,
   addCard,
   updateCard,
   deleteCard,
-} from "../api/api";
+} from "../api/card-api";
 
 export const CardContext = createContext();
 
@@ -17,6 +18,18 @@ const dispatchMiddleware = dispatch => {
           dispatch({ type: "SEND" });
           const loadedCards = await getCards();
           dispatch({ ...action, payload: loadedCards });
+          dispatch({ type: "SUCCESS" });
+        } catch (err) {
+          dispatch({ type: "ERROR", payload: err });
+        }
+        break;
+      }
+
+      case "GET_USER_CARDS": {
+        try {
+          dispatch({ type: "SEND" });
+          const loadedUserCards = await getUserCards(action.payload);
+          dispatch({ ...action, payload: loadedUserCards });
           dispatch({ type: "SUCCESS" });
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
@@ -82,19 +95,23 @@ const dispatchMiddleware = dispatch => {
 
 const cardReducer = (state, action) => {
   switch (action.type) {
-    case "GET_ALL_CARDS": {
+    case "GET_ALL_CARDS":
       return {
         ...state,
         data: action.payload,
       };
-    }
 
-    case "GET_SINGLE_CARD": {
+    case "GET_USER_CARDS":
+      return {
+        ...state,
+        data: action.payload,
+      };
+
+    case "GET_SINGLE_CARD":
       return {
         ...state,
         singleData: action.payload,
       };
-    }
 
     case "DELETE_CARD":
       return {

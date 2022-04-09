@@ -98,7 +98,7 @@ const EditCard = () => {
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={level}
+          value={level || "Normal"}
           onChange={e => setLevel(e.target.value)}
           autoWidth
           label="Level"
