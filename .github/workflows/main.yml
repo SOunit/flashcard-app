@@ -4,15 +4,26 @@ on:
   push:
     branches:
       - main
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install yarn Packages
+        run: yarn install
+      - name: Build page
+        run: yarn build
+        env:
+          CI: false
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "midpj-flashcard-app"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
- 
