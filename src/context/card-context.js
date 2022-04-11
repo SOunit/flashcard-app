@@ -52,9 +52,9 @@ const dispatchMiddleware = dispatch => {
       case "ADD_CARD": {
         try {
           dispatch({ type: "SEND" });
-          await addCard(action.payload);
-          const loadedCards = await getCards();
-          dispatch({ type: "GET_ALL_CARDS", payload: loadedCards });
+          await addCard(action.payload.cardData);
+          const loadedCards = await getUserCards(action.payload.uid);
+          dispatch({ type: "GET_USER_CARDS", payload: loadedCards });
           dispatch({ type: "SUCCESS" });
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
@@ -66,8 +66,8 @@ const dispatchMiddleware = dispatch => {
         try {
           dispatch({ type: "SEND" });
           await updateCard(action.payload.id, action.payload.data);
-          const loadedCards = await getCards();
-          dispatch({ type: "GET_ALL_CARDS", payload: loadedCards });
+          const loadedCards = await getUserCards(action.payload.uid);
+          dispatch({ type: "GET_USER_CARDS", payload: loadedCards });
           dispatch({ type: "SUCCESS" });
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });

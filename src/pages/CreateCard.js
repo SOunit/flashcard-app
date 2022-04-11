@@ -35,7 +35,10 @@ const CreateCard = () => {
   const createNewCardHandler = e => {
     e.preventDefault();
 
-    dispatch({ type: "ADD_CARD", payload: cardData });
+    dispatch({
+      type: "ADD_CARD",
+      payload: { cardData: cardData, uid: authUser.uid },
+    });
 
     setFront("");
     setBack("");
