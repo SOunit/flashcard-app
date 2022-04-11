@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { CardContext } from "../context/card-context";
 
 import TextField from "@mui/material/TextField";
@@ -52,65 +52,70 @@ const EditCard = () => {
   };
 
   return (
-    <>
-      <TextField
-        id="outlined-basic"
-        label="front"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        value={front}
-        onChange={e => setFront(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="back"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px 10px" }}
-        value={back}
-        onChange={e => setBack(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="example sentence"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        value={example}
-        onChange={e => setExample(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="comment"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        value={comment}
-        onChange={e => setComment(e.target.value)}
-      />
-      <FormControl sx={{ width: 200, margin: "15px" }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
-        <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
-          value={level || "Normal"}
-          onChange={e => setLevel(e.target.value)}
-          autoWidth
-          label="Level"
-        >
-          <MenuItem value={"Critical"}>Critical</MenuItem>
-          <MenuItem value={"High"}>High</MenuItem>
-          <MenuItem value={"Normal"}>Normal</MenuItem>
-          <MenuItem value={"Low"}>Low</MenuItem>
-        </Select>
-      </FormControl>
-      <PrimaryButton onClick={updateHandler}>Save</PrimaryButton>
-    </>
+    <div className="section-container-wide center-col">
+      <div>
+        <TextField
+          id="outlined-basic"
+          label="front"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          value={front}
+          onChange={e => setFront(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="back"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          value={back}
+          onChange={e => setBack(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="example sentence"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          value={example}
+          onChange={e => setExample(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="comment"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+        />
+        <FormControl sx={{ width: 200, margin: "15px" }}>
+          <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
+          <Select
+            labelId="demo-simple-select-autowidth-label"
+            id="demo-simple-select-autowidth"
+            value={level || "Normal"}
+            onChange={e => setLevel(e.target.value)}
+            autoWidth
+            label="Level"
+          >
+            <MenuItem value={"Critical"}>Critical</MenuItem>
+            <MenuItem value={"High"}>High</MenuItem>
+            <MenuItem value={"Normal"}>Normal</MenuItem>
+            <MenuItem value={"Low"}>Low</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      <div className="center-row">
+        <PrimaryButton onClick={updateHandler}>Save</PrimaryButton>
+        <Link to="/home">Go back</Link>
+      </div>
+    </div>
   );
 };
 

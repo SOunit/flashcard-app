@@ -20,32 +20,43 @@ const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 275, margin: "15px" }}>
-      {!isBack ? (
-        <CardContent onClick={cardFlipHandler}>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {level}
-          </Typography>
-          <Typography sx={{ fontSize: 28, mb: 1.5 }}>{front}</Typography>
-          <Typography variant="body2">{example}</Typography>
-        </CardContent>
-      ) : (
-        <CardContent onClick={cardFlipHandler}>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {level}
-          </Typography>
-          <Typography sx={{ fontSize: 28, mb: 1.5 }}>{back}</Typography>
-          <Typography variant="body2">{comment}</Typography>
-        </CardContent>
-      )}
+    <Card sx={{ width: "80%", margin: "15px auto", padding: "15px" }}>
+      <div className="card">
+        {!isBack ? (
+          <CardContent onClick={cardFlipHandler}>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {level}
+            </Typography>
+            <Typography sx={{ fontSize: 28, mb: 1.5 }}>{front}</Typography>
+            <Typography variant="body2">{example}</Typography>
+          </CardContent>
+        ) : (
+          <CardContent onClick={cardFlipHandler}>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {level}
+            </Typography>
+            <Typography sx={{ fontSize: 28, mb: 1.5 }}>{back}</Typography>
+            <Typography variant="body2">{comment}</Typography>
+          </CardContent>
+        )}
+        <div className="center-row">
+          <Link to={`/cards/${cardId}/edit`}>
+            <PrimaryButton>EDIT</PrimaryButton>
+          </Link>
 
-      <Link to={`/cards/${cardId}/edit`}>
-        <PrimaryButton>EDIT</PrimaryButton>
-      </Link>
-
-      <PrimaryButton onClick={() => deleteHandler(cardId)}>
-        DELETE
-      </PrimaryButton>
+          <PrimaryButton onClick={() => deleteHandler(cardId)}>
+            DELETE
+          </PrimaryButton>
+        </div>
+      </div>
     </Card>
   );
 };

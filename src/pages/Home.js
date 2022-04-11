@@ -1,24 +1,33 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth-context";
 
 import CreateCardButton from "../components/UI/CreateCardButton";
 import Button from "@mui/material/Button";
 
 const Home = () => {
-  const auth = useContext(AuthContext);
+  const loggedInOption = (
+    <>
+      <Button
+        color="primary"
+        sx={{ width: "200px" }}
+        onClick={() => navigate("/cards")}
+      >
+        Your Cards
+      </Button>
+      <div className="spacer-sm" />
+      <Button disabled sx={{ width: "200px" }}>
+        Search Cards
+      </Button>
+    </>
+  );
+
   const navigate = useNavigate();
-  console.log(auth.isLoggedIn);
 
   return (
-    <div className="home-menu">
+    <div className="section-container center-col">
       <CreateCardButton />
-      {auth.isLoggedIn && (
-        <>
-          <Button onClick={() => navigate("/cards")}>Your Cards</Button>
-          <Button>Search Cards</Button>
-        </>
-      )}
+      <div className="spacer-sm" />
+      {loggedInOption}
     </div>
   );
 };

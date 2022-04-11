@@ -10,19 +10,90 @@ html {
 
 body {
   margin: 0;
+  background: #e0f2f1;
 }
 
 main {
   width: 95%;
-  margin: 1rem auto;
+  margin: 2rem auto;
 }
 
-.home-menu {
-  display: flex;
-  flex-direction: column;
+h1 {
+  font-size: 1.5rem;
+  margin: 12px 0;
+  padding: 0;
+  color: #26a69a;
+}
+
+h2 {
+  font-size: 1rem;
+  margin: 12px 0;
+  padding: 0;
+}
+
+p {
+  font-size: 1rem;
+  margin: 12px 0;
+  padding: 0;
 }
 
 a {
   text-decoration: none;
   color: #606060;
+  margin: 0 1rem;
 }
+
+.section-container-wide {
+  margin: 0 auto;
+  max-width: 900px;
+  position: relative;
+  padding: 0 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.section-container {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 1rem;
+  height: auto;
+  width: calc(100% - 2rem);
+}
+
+.spacer-lg {
+  height: 32px;
+}
+
+.spacer-md {
+  height: 20px;
+}
+
+.spacer-sm {
+  height: 12px;
+}
+
+.center-col {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-row {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: start;
+  justify-content: space-between;
+  align-items: end;
+}
+

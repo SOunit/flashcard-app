@@ -11,7 +11,7 @@ const FormButton = ({ children, disabled, onClick }) => {
     );
   }
   return (
-    <Button variant="contained" onClick={onClick}>
+    <Button variant="contained" color="secondary" onClick={onClick}>
       {children}
     </Button>
   );

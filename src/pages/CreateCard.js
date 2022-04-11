@@ -47,63 +47,67 @@ const CreateCard = () => {
   };
 
   return (
-    <>
-      <h1>Create a new card</h1>
-      <TextField
-        id="outlined-basic"
-        label="front"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        onChange={e => setFront(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="back"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px 10px" }}
-        onChange={e => setBack(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="example sentence"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        onChange={e => setExample(e.target.value)}
-      />
-      <TextField
-        id="outlined-basic"
-        label="comment"
-        multiline
-        rows={4}
-        variant="outlined"
-        sx={{ width: 200, margin: "15px" }}
-        onChange={e => setComment(e.target.value)}
-      />
-      <FormControl sx={{ width: 200, margin: "15px" }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
-        <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
-          value={level}
-          onChange={e => setLevel(e.target.value)}
-          autoWidth
-          label="Level"
-        >
-          <MenuItem value={"Critical"}>Critical</MenuItem>
-          <MenuItem value={"High"}>High</MenuItem>
-          <MenuItem value={"Normal"}>Normal</MenuItem>
-          <MenuItem value={"Low"}>Low</MenuItem>
-        </Select>
-      </FormControl>
-      <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
-      <Link to="/home">Go back</Link>
-    </>
+    <div className="section-container-wide center-col">
+      <h1>Create a new card!</h1>
+      <div>
+        <TextField
+          id="outlined-basic"
+          label="front"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          onChange={e => setFront(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="back"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          onChange={e => setBack(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="example sentence"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          onChange={e => setExample(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="comment"
+          multiline
+          rows={4}
+          variant="outlined"
+          sx={{ width: 300, margin: "15px" }}
+          onChange={e => setComment(e.target.value)}
+        />
+        <FormControl sx={{ width: 200, margin: "15px" }}>
+          <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
+          <Select
+            labelId="demo-simple-select-autowidth-label"
+            id="demo-simple-select-autowidth"
+            value={level}
+            onChange={e => setLevel(e.target.value)}
+            autoWidth
+            label="Level"
+          >
+            <MenuItem value={"Critical"}>Critical</MenuItem>
+            <MenuItem value={"High"}>High</MenuItem>
+            <MenuItem value={"Normal"}>Normal</MenuItem>
+            <MenuItem value={"Low"}>Low</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      <div className="center-row">
+        <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
+        <Link to="/home">Go back</Link>
+      </div>
+    </div>
   );
 };
 
