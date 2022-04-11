@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { CardContext } from "../context/card-context";
+import { AuthContext } from "../context/auth-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,6 +14,7 @@ const EditCard = () => {
   const cardId = useParams().cid;
   const navigate = useNavigate();
   const { dispatch, singleData, status } = useContext(CardContext);
+  const { authUser } = useContext(AuthContext);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -44,7 +46,7 @@ const EditCard = () => {
   const updateHandler = () => {
     dispatch({
       type: "UPDATE_CARD",
-      payload: { id: cardId, data: updatedCard },
+      payload: { id: cardId, data: updatedCard, uid: authUser.uid },
     });
     if (status === "completed") {
       navigate("/cards");

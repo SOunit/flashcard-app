@@ -20,7 +20,7 @@ const AllCards = () => {
       const loginUserId = authUser.uid;
       dispatch({ type: "GET_USER_CARDS", payload: loginUserId });
     }
-  }, [authUser, dispatch]);
+  }, [authUser]);
 
   let content;
   if (status === "pending") {
@@ -48,6 +48,7 @@ const AllCards = () => {
   return (
     <div className="section-container-wide center-col">
       <CreateCardButton />
+      <div className="spacer-sm" />
       {content}
       <div className="spacer-sm" />
       <Link to="/home">Go back</Link>
