@@ -18,11 +18,9 @@ const AllCards = () => {
   useEffect(() => {
     if (authUser.uid) {
       const loginUserId = authUser.uid;
-      console.log("loginUserId", loginUserId);
-      console.log("Cards", loadedCards);
       dispatch({ type: "GET_USER_CARDS", payload: loginUserId });
     }
-  }, [authUser]);
+  }, [authUser, dispatch]);
 
   let content;
   if (status === "pending") {
@@ -48,11 +46,12 @@ const AllCards = () => {
   content = <CardList cards={loadedCards} />;
 
   return (
-    <>
+    <div className="section-container-wide center-col">
       <CreateCardButton />
       {content}
+      <div className="spacer-sm" />
       <Link to="/home">Go back</Link>
-    </>
+    </div>
   );
 };
 
