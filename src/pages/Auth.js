@@ -50,7 +50,7 @@ const Auth = () => {
         formState.inputs.password.value,
         formState.inputs.username.value
       );
-
+      
       if (authUser) {
         dispatch({
           type: "ADD_USER",

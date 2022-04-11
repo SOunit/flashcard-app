@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth-context";
 
 import AppBar from "@mui/material/AppBar";
@@ -10,7 +10,21 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
-  const { logOut, authUser, username } = useContext(AuthContext);
+  const { logOut, authUser } = useContext(AuthContext);
+
+  // useEffect(() => {
+  //   if (reqData) {
+  //     const loginUserId = reqData.id;
+  //     dispatch({ type: "GET_USER", payload: loginUserId });
+  //   }
+  // }, [reqData]);
+
+  // useEffect(() => {
+  //   if (resData) {
+  //     console.log(resData);
+  //     setLoginUsername(resData.username);
+  //   }
+  // }, [resData]);
 
   const logoutHandler = async () => {
     try {
@@ -19,7 +33,6 @@ const Header = () => {
       console.log(err);
     }
   };
-  console.log("authUser on Header", authUser);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -35,7 +48,7 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Welcome! {username}
+            Welcome! {authUser && authUser.email}
           </Typography>
           {authUser && (
             <Button color="inherit" onClick={logoutHandler}>
