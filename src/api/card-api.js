@@ -25,7 +25,6 @@ export const getCards = async () => {
 
 export const getUserCards = async userId => {
   const loadedCards = await getCards();
-  console.log("UserId", userId);
   return loadedCards.filter(card => card.userId === userId);
 };
 

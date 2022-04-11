@@ -8,13 +8,26 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
-import { addUser } from "../api/user-api";
+import { addUser, getUser } from "../api/user-api";
 
 export const AuthContext = createContext();
 
 const dispatchMiddleware = dispatch => {
   return async action => {
     switch (action.type) {
+      case "GET_USER":
+        {
+          try {
+            dispatch({ type: "SEND" });
+            const loadedUser = await getUser(action.payload);
+            dispatch({ type: "GET_USER", payload: loadedUser });
+            dispatch({ type: "SUCCESS" });
+          } catch (err) {
+            dispatch({ type: "ERROR", payload: err });
+          }
+        }
+        break;
+
       case "ADD_USER":
         {
           try {
@@ -39,7 +52,13 @@ const loginUserReducer = (state, action) => {
     case "SET_USER":
       return {
         ...state,
-        data: action.payload,
+        reqData: action.payload,
+      };
+
+    case "GET_USER":
+      return {
+        ...state,
+        resData: action.payload,
       };
 
     case "SEND":
