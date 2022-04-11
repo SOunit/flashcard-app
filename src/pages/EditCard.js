@@ -115,7 +115,7 @@ const EditCard = () => {
       </div>
       <div className="center-row">
         <PrimaryButton onClick={updateHandler}>Save</PrimaryButton>
-        <Link to="/home">Go back</Link>
+        <Link to="/cards">Go back</Link>
       </div>
     </div>
   );
