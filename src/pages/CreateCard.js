@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import useHttp from "../hooks/use-http";
-import { addCard } from "../api/api";
+import { CardContext } from "../context/card-context";
+import { AuthContext } from "../context/auth-context";
 
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,7 +12,8 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 
 const CreateCard = () => {
   const navigate = useNavigate();
-  const { sendRequest, status } = useHttp(addCard, true);
+  const { dispatch } = useContext(CardContext);
+  const { authUser } = useContext(AuthContext);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -20,34 +21,30 @@ const CreateCard = () => {
   const [comment, setComment] = useState("");
   const [level, setLevel] = useState("");
 
+  const loginUserId = authUser.uid;
+
   const cardData = {
     front: front,
     back: back,
     example: example,
     comment: comment,
     level: level,
+    userId: loginUserId,
   };
 
-  useEffect(() => {
-    if (status === "completed") {
-      navigate("/cards");
-    }
-  }, [status, navigate]);
+  const createNewCardHandler = e => {
+    e.preventDefault();
 
-  const createNewCardHandler = useCallback(
-    e => {
-      e.preventDefault();
+    dispatch({ type: "ADD_CARD", payload: cardData });
 
-      sendRequest(cardData);
+    setFront("");
+    setBack("");
+    setExample("");
+    setComment("");
+    setLevel("");
 
-      setFront("");
-      setBack("");
-      setExample("");
-      setComment("");
-      setLevel("");
-    },
-    [cardData]
-  );
+    navigate("/cards");
+  };
 
   return (
     <>
@@ -105,7 +102,7 @@ const CreateCard = () => {
         </Select>
       </FormControl>
       <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
-      <Link to="/">Go back</Link>
+      <Link to="/home">Go back</Link>
     </>
   );
 };

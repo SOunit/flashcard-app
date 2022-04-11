@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { getCards } from "../api/api";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
 import CreateCardButton from "../components/UI/CreateCardButton";
+import { CardContext } from "../context/card-context";
+import { AuthContext } from "../context/auth-context";
 
 const AllCards = () => {
   const {
-    sendRequest,
     data: loadedCards,
     error,
     status,
-  } = useHttp(getCards, true);
+    dispatch,
+  } = useContext(CardContext);
+  const { authUser } = useContext(AuthContext);
 
   useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
+    if (authUser.uid) {
+      const loginUserId = authUser.uid;
+      console.log("loginUserId", loginUserId);
+      console.log("Cards", loadedCards);
+      dispatch({ type: "GET_USER_CARDS", payload: loginUserId });
+    }
+  }, [authUser]);
 
   let content;
   if (status === "pending") {
@@ -45,7 +51,7 @@ const AllCards = () => {
     <>
       <CreateCardButton />
       {content}
-      <Link to="/">Go back</Link>
+      <Link to="/home">Go back</Link>
     </>
   );
 };

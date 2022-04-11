@@ -17,10 +17,16 @@ export const getCards = async () => {
       ...data[key],
     };
 
-    loadedCards.push(cardObj);
+    loadedCards.unshift(cardObj);
   }
 
   return loadedCards;
+};
+
+export const getUserCards = async userId => {
+  const loadedCards = await getCards();
+  console.log("UserId", userId);
+  return loadedCards.filter(card => card.userId === userId);
 };
 
 export const getSingleCard = async cardId => {
@@ -40,33 +46,33 @@ export const getSingleCard = async cardId => {
 };
 
 export const addCard = async cardData => {
-  const request = await fetch(`${FIREBASE_DOMAIN}/cards.json`, {
+  const response = await fetch(`${FIREBASE_DOMAIN}/cards.json`, {
     method: "POST",
     body: JSON.stringify(cardData),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const data = await request.json();
+  const data = await response.json();
 
-  if (!request.ok) {
+  if (!response.ok) {
     throw new Error(data.message || "Failed to add a new card");
   }
 
-  return null;
+  return data;
 };
 
 export const deleteCard = async cardId => {
-  const request = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
+  const response = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
     method: "DELETE",
     body: JSON.stringify(cardId),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const data = await request.json();
+  const data = await response.json();
 
-  if (!request.ok) {
+  if (!response.ok) {
     throw new Error(data.message || "Failed to delete the card");
   }
 
@@ -74,16 +80,16 @@ export const deleteCard = async cardId => {
 };
 
 export const updateCard = async (cardId, cardData) => {
-  const request = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
+  const response = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
     method: "PATCH",
     body: JSON.stringify(cardData),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const data = await request.data;
+  const data = await response.data;
 
-  if (!request.ok) {
+  if (!response.ok) {
     throw new Error(data.message || "Failed to edit the card");
   }
 
