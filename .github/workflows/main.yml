@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix-github-workflows
 jobs:
   deploy:
     runs-on: ubuntu-latest
