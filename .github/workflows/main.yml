@@ -16,10 +16,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install yarn Packages
-        run: yarn install
+      - name: Install npm Packages
+        run: npm install
       - name: Build page
-        run: yarn build
+        run: npm run build
         env:
           CI: false
       - uses: akhileshns/heroku-deploy@v3.12.12
