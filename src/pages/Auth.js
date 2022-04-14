@@ -103,7 +103,7 @@ const Auth = () => {
 
   return (
     <div className="section-container center-col">
-      <Paper sx={{ p: "2rem" }}>
+      <Paper sx={{ p: "2rem 1rem", width: "90%" }}>
         {isLoginMode ? <h1>Login Required</h1> : <h1>Sign Up</h1>}
         {error && <h2>{error}</h2>}
         <div>
@@ -117,6 +117,7 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
+          <div className="spacer-sm" />
           <InputForm
             id="email"
             label="Email"
@@ -125,6 +126,7 @@ const Auth = () => {
             validators={[VALIDATOR_EMAIL()]}
             onInput={inputHandler}
           />
+          <div className="spacer-sm" />
           <InputForm
             id="password"
             label="Password"

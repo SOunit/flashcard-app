@@ -6,6 +6,9 @@ import App from "./App";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: `"Comfortaa", cursive`,
+  },
   palette: {
     primary: {
       main: "#26a69a",

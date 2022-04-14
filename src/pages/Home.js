@@ -2,32 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import CreateCardButton from "../components/UI/CreateCardButton";
-import Button from "@mui/material/Button";
+import MenuButton from "../components/UI/MenuButton";
 
 const Home = () => {
-  const loggedInOption = (
-    <>
-      <Button
-        color="primary"
-        sx={{ width: "200px" }}
-        onClick={() => navigate("/cards")}
-      >
-        Your Cards
-      </Button>
-      <div className="spacer-sm" />
-      <Button disabled sx={{ width: "200px" }}>
-        Search Cards
-      </Button>
-    </>
-  );
-
   const navigate = useNavigate();
 
   return (
     <div className="section-container center-col">
-      <CreateCardButton />
+      <MenuButton onClick={() => navigate("/new")}>
+        Create a New Card
+      </MenuButton>
       <div className="spacer-sm" />
-      {loggedInOption}
+      <MenuButton onClick={() => navigate("/cards")}>Your Cards</MenuButton>
+      <div className="spacer-sm" />
+      <MenuButton>Search Cards</MenuButton>
+      <div className="spacer-sm" />
+      <MenuButton>Shuffle Cards</MenuButton>
     </div>
   );
 };
