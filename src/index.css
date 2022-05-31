@@ -94,5 +94,5 @@ a {
   flex-direction: row;
   text-align: start;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
 }

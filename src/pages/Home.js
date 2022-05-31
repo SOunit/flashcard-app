@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import CreateCardButton from "../components/UI/CreateCardButton";
 import MenuButton from "../components/UI/MenuButton";
 
 const Home = () => {
@@ -15,12 +14,11 @@ const Home = () => {
       <div className="spacer-sm" />
       <MenuButton onClick={() => navigate("/cards")}>Your Cards</MenuButton>
       <div className="spacer-sm" />
-      <MenuButton>Search Cards</MenuButton>
-      <div className="spacer-sm" />
       <MenuButton>Shuffle Cards</MenuButton>
+      <div className="spacer-sm" />
+      <MenuButton>Search Cards</MenuButton>
     </div>
   );
 };
-
 
 export default Home;
