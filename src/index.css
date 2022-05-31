@@ -88,11 +88,3 @@ a {
   align-items: center;
 }
 
-.card {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  text-align: start;
-  justify-content: space-between;
-  align-items: end;
-}
