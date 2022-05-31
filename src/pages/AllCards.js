@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
+import CardFilter from "../components/Cards/CardFilter";
 import CreateCardButton from "../components/UI/CreateCardButton";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
@@ -14,6 +15,18 @@ const AllCards = () => {
     dispatch,
   } = useContext(CardContext);
   const { authUser } = useContext(AuthContext);
+  const [levels, setLevels] = useState([]);
+  const [content, setContent] = useState();
+
+  const filterValueChangeHandler = useCallback(event => {
+    const {
+      target: { value },
+    } = event;
+    setLevels(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  }, []);
 
   useEffect(() => {
     if (authUser.uid) {
@@ -22,34 +35,41 @@ const AllCards = () => {
     }
   }, [authUser]);
 
-  let content;
-  if (status === "pending") {
-    content = (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
-
   if (error) {
-    content = { error };
+    setContent({ error });
   }
 
   if (status === "completed" && (!loadedCards || loadedCards.length === 0)) {
-    content = (
+    setContent(
       <div>
         <h1>No cards found</h1>
       </div>
     );
   }
 
-  content = <CardList cards={loadedCards} />;
+  useEffect(() => {
+    setContent(<CardList cards={loadedCards} />);
+    if (levels && levels.length > 0) {
+      const filteredLoadedCards = loadedCards?.filter(card =>
+        levels.includes(card.level)
+      );
+      setContent(<CardList cards={filteredLoadedCards} />);
+    }
+  }, [levels, loadedCards]);
 
   return (
     <div className="section-container-wide center-col">
       <CreateCardButton />
       <div className="spacer-sm" />
-      {content}
+      <CardFilter onChange={filterValueChangeHandler} value={levels} />
+      <div className="spacer-sm" />
+      {status === "pending" ? (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        content
+      )}
       <div className="spacer-sm" />
       <Link to="/home">Go back</Link>
     </div>
