@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
 import CardFilter from "../components/Cards/CardFilter";
+import CardSearch from "../components/Cards/CardSearch";
 import CreateCardButton from "../components/UI/CreateCardButton";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
@@ -16,7 +17,15 @@ const AllCards = () => {
   } = useContext(CardContext);
   const { authUser } = useContext(AuthContext);
   const [levels, setLevels] = useState([]);
-  const [content, setContent] = useState();
+  const [listContent, setListContent] = useState();
+  const [searchInput, setSearchInput] = useState();
+
+  const searchInputChangeHandler = useCallback(event => {
+    const {
+      target: { value },
+    } = event;
+    setSearchInput(value);
+  }, []);
 
   const filterValueChangeHandler = useCallback(event => {
     const {
@@ -36,11 +45,11 @@ const AllCards = () => {
   }, [authUser]);
 
   if (error) {
-    setContent({ error });
+    setListContent({ error });
   }
 
   if (status === "completed" && (!loadedCards || loadedCards.length === 0)) {
-    setContent(
+    setListContent(
       <div>
         <h1>No cards found</h1>
       </div>
@@ -48,19 +57,30 @@ const AllCards = () => {
   }
 
   useEffect(() => {
-    setContent(<CardList cards={loadedCards} />);
+    setListContent(<CardList cards={loadedCards} />);
     if (levels && levels.length > 0) {
-      const filteredLoadedCards = loadedCards?.filter(card =>
+      const filteredCards = loadedCards?.filter(card =>
         levels.includes(card.level)
       );
-      setContent(<CardList cards={filteredLoadedCards} />);
+      setListContent(<CardList cards={filteredCards} />);
     }
   }, [levels, loadedCards]);
+
+  useEffect(() => {
+    const searchResult = loadedCards?.filter(
+      card =>
+        card.front.includes(searchInput) ||
+        card.back.includes(searchInput) ||
+        card.comment.includes(searchInput)
+    );
+    setListContent(<CardList cards={searchResult} />);
+  }, [searchInput]);
 
   return (
     <div className="section-container-wide center-col">
       <CreateCardButton />
       <div className="spacer-sm" />
+      <CardSearch onChange={searchInputChangeHandler} />
       <CardFilter onChange={filterValueChangeHandler} value={levels} />
       <div className="spacer-sm" />
       {status === "pending" ? (
@@ -68,7 +88,7 @@ const AllCards = () => {
           <h1>Loading...</h1>
         </div>
       ) : (
-        content
+        listContent
       )}
       <div className="spacer-sm" />
       <Link to="/home">Go back</Link>
