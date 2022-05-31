@@ -1,9 +1,9 @@
 import React from "react";
-import "./MenuButton.css";
+import classes from "./MenuButton.module.css";
 
 const MenuButton = ({ onClick, children }) => {
   return (
-    <button className="menu-button" onClick={onClick}>
+    <button className={classes["menu-button"]} onClick={onClick}>
       {children}
     </button>
   );
