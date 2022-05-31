@@ -79,6 +79,7 @@ const AllCards = () => {
   return (
     <div className="section-container-wide center-col">
       <CreateCardButton />
+      <Link to="/cards/shuffle">Shuffle Cards</Link>
       <div className="spacer-sm" />
       <CardSearch onChange={searchInputChangeHandler} />
       <CardFilter onChange={filterValueChangeHandler} value={levels} />
