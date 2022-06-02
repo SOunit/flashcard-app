@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
   const { authUser } = useContext(AuthContext);
 
   if (!authUser) {
-    return <Navigate to="/auth" />;
+    return <Navigate to="/login" />;
   }
 
   return children;
@@ -37,7 +37,11 @@ const App = () => {
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/auth" element={<Auth />} />
+              <Route path="/login" element={<Auth isLoginModeProp={true} />} />
+              <Route
+                path="/signup"
+                element={<Auth isLoginModeProp={false} />}
+              />
               <Route
                 path="/new"
                 element={

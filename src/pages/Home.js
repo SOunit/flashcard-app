@@ -14,11 +14,11 @@ const Home = () => {
           <h2 className="text-emerald-50">Enlighten Yourself With New Words</h2>
         </div>
       </div>
-      <div className="FlexCenter flex-col my-8 md:my-12">
-        <Link to="/auth">
+      <div className="FlexColumn my-8 md:my-12">
+        <Link to="/login">
           <Button className="h-12 my-2 px-20 sm:px-36" content="LOG IN" />
         </Link>
-        <Link to="/auth">
+        <Link to="/signup">
           <Button className="h-12 my-2 px-20 sm:px-36" content="SIGN UP" />
         </Link>
       </div>

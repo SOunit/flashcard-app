@@ -30,11 +30,14 @@
     @apply text-sm text-accent font-light;
   }
   button {
-    @apply text-sm sm:text-base xl:text-lg 2xl:text-xl font-semibold bg-emerald-300 bg-opacity-20 hover:bg-opacity-30 text-primary rounded-full shadow-none hover:shadow transform hover:-translate-y-1 duration-300 cursor-pointer focus:outline-none py-1 px-4;
+    @apply text-sm sm:text-base xl:text-lg 2xl:text-xl font-semibold bg-emerald-300 bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-300 text-primary disabled:text-gray-500 rounded-full shadow-none hover:shadow transform hover:-translate-y-1 duration-300 cursor-pointer focus:outline-none py-1 px-4;
   }
 }
 
 @layer component {
+  .FlexColumn {
+    @apply flex flex-col items-center justify-center;
+  }
   .FlexCenter {
     @apply flex items-center justify-center;
   }
@@ -44,8 +47,8 @@
   .FlexJustify {
     @apply flex justify-center;
   }
-  .RoundShadow {
-    @apply rounded shadow;
+  .WhiteContainer {
+    @apply bg-white rounded-lg p-10 mx-10 sm:mx-20 md:mx-28 lg:mx-40 xl:mx-80 my-20;
   }
   .Hover {
     @apply transform hover:-translate-y-1 duration-300;

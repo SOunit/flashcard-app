@@ -108,11 +108,6 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const googleSignIn = () => {
-    const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       console.log("Auth", currentUser);
@@ -132,7 +127,6 @@ export const AuthContextProvider = ({ children }) => {
         logIn,
         signUp,
         logOut,
-        googleSignIn,
         dispatch: dispatchMiddleware(dispatch),
         ...loginUserState,
       }}
