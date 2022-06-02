@@ -4,8 +4,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { addUser, getUser } from "../api/user-api";
@@ -24,7 +22,6 @@ const dispatchMiddleware = dispatch => {
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
         }
-
         break;
 
       case "ADD_USER":
@@ -36,7 +33,6 @@ const dispatchMiddleware = dispatch => {
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
         }
-
         break;
 
       default:

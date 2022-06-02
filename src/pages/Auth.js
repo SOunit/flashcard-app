@@ -13,10 +13,11 @@ import Button from "../components/UI/Button";
 const Auth = ({ isLoginModeProp }) => {
   const navigate = useNavigate();
   const { logIn, signUp, dispatch, authUser } = useContext(AuthContext);
-  const [isLoginMode, setIsLoginMode] = useState();
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const [error, setError] = useState("");
   const [formState, inputHandler, setFormData] = useForm(
     {
+      // username: undefined,
       email: { value: "", isValid: false },
       password: { value: "", isValid: false },
     },
