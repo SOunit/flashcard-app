@@ -16,29 +16,27 @@ const dispatchMiddleware = dispatch => {
   return async action => {
     switch (action.type) {
       case "GET_USER":
-        {
-          try {
-            dispatch({ type: "SEND" });
-            const loadedUser = await getUser(action.payload);
-            dispatch({ type: "GET_USER", payload: loadedUser });
-            dispatch({ type: "SUCCESS" });
-          } catch (err) {
-            dispatch({ type: "ERROR", payload: err });
-          }
+        try {
+          dispatch({ type: "SEND" });
+          const loadedUser = await getUser(action.payload);
+          dispatch({ type: "GET_USER", payload: loadedUser });
+          dispatch({ type: "SUCCESS" });
+        } catch (err) {
+          dispatch({ type: "ERROR", payload: err });
         }
+
         break;
 
       case "ADD_USER":
-        {
-          try {
-            dispatch({ type: "SEND" });
-            const loadedUser = await addUser(action.payload);
-            dispatch({ type: "SET_USER", payload: loadedUser });
-            dispatch({ type: "SUCCESS" });
-          } catch (err) {
-            dispatch({ type: "ERROR", payload: err });
-          }
+        try {
+          dispatch({ type: "SEND" });
+          const loadedUser = await addUser(action.payload);
+          dispatch({ type: "SET_USER", payload: loadedUser });
+          dispatch({ type: "SUCCESS" });
+        } catch (err) {
+          dispatch({ type: "ERROR", payload: err });
         }
+
         break;
 
       default:

@@ -9,7 +9,6 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import classes from "./ShuffleCards.module.css";
 
 const ShuffleCards = () => {
   const {
@@ -56,7 +55,6 @@ const ShuffleCards = () => {
         }}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className={classes.mySwiper}
       >
         {status === "pending" ? (
           <div>

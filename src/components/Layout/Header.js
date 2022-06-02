@@ -6,25 +6,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
   const { logOut, authUser } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   if (reqData) {
-  //     const loginUserId = reqData.id;
-  //     dispatch({ type: "GET_USER", payload: loginUserId });
-  //   }
-  // }, [reqData]);
-
-  // useEffect(() => {
-  //   if (resData) {
-  //     console.log(resData);
-  //     setLoginUsername(resData.username);
-  //   }
-  // }, [resData]);
 
   const logoutHandler = async () => {
     try {
@@ -37,18 +22,9 @@ const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar sx={{ height: "1.5rem" }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Welcome! {authUser && authUser.email}
+            FLASH {authUser && authUser.email}
           </Typography>
           {authUser && (
             <Button color="inherit" onClick={logoutHandler}>

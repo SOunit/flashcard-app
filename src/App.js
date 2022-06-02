@@ -9,8 +9,9 @@ import { AuthContextProvider } from "./context/auth-context";
 import { CardProvider } from "./context/card-context";
 import { AuthContext } from "./context/auth-context";
 
-import Header from "./components/Layout/Header";
 import Home from "./pages/Home";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
 import Auth from "./pages/Auth";
 import CreateCard from "./pages/CreateCard";
 import AllCards from "./pages/AllCards";
@@ -35,16 +36,8 @@ const App = () => {
         <main>
           <Router>
             <Routes>
-              <Route path="/" element={<Navigate to="/auth" />} />
+              <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
               <Route
                 path="/new"
                 element={
@@ -80,6 +73,7 @@ const App = () => {
             </Routes>
           </Router>
         </main>
+        <Footer />
       </CardProvider>
     </AuthContextProvider>
   );

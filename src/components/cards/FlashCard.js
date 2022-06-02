@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import PrimaryButton from "../UI/PrimaryButton";
 import { CardContext } from "../../context/card-context";
-import classes from "./FlashCard.module.css";
 
 const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
   const [isBack, setIsBack] = useState(false);
@@ -22,9 +21,9 @@ const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
 
   return (
     <Card sx={{ width: "80%", margin: "15px auto", padding: "15px" }}>
-      <div className={classes["card-container"]} onClick={cardFlipHandler}>
+      <div onClick={cardFlipHandler}>
         {!isBack ? (
-          <div className={classes.card}>
+          <div>
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}
@@ -38,7 +37,7 @@ const FlashCard = ({ id: cardId, front, back, example, comment, level }) => {
             </CardContent>
           </div>
         ) : (
-          <div className={classes.card}>
+          <div>
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}
