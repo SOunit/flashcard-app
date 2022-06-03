@@ -108,7 +108,7 @@ const CreateCard = () => {
       </div>
       <div className="center-row">
         <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
-        <Link to="/home">Go back</Link>
+        <Link to="/cards">Go back</Link>
       </div>
     </div>
   );

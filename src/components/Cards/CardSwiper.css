@@ -1,0 +1,6 @@
+.swiper {
+  overflow: visible !important;
+}
+.swiper-pagination-bullet {
+  --swiper-theme-color: #2a9d8f;
+}

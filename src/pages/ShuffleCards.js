@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
@@ -43,7 +44,6 @@ const ShuffleCards = () => {
 
   useEffect(() => {
     setCards(loadedCards);
-    console.log("loadedCards:", loadedCards);
   }, [loadedCards]);
 
   return (
@@ -69,6 +69,7 @@ const ShuffleCards = () => {
           ))
         )}
       </Swiper>
+      <Link to="/cards">Cards List</Link>
     </>
   );
 };

@@ -41,16 +41,22 @@
   .FlexCenter {
     @apply flex items-center justify-center;
   }
-  .FlexAlign {
+  .FlexAlignCenter {
     @apply flex items-center;
   }
-  .FlexJustify {
+  .FlexJustifyCenter {
     @apply flex justify-center;
+  }
+  .FlexJustifyEnd {
+    @apply flex justify-end;
   }
   .WhiteContainer {
     @apply bg-white rounded-lg p-10 mx-10 sm:mx-20 md:mx-28 lg:mx-40 xl:mx-80 my-20;
   }
+  .Card {
+    @apply bg-white rounded-md p-6 sm:p-8 mx-10 mb-10 sm:mx-20 md:mx-28 lg:mx-40 xl:mx-80 cursor-pointer;
+  }
   .Hover {
-    @apply transform hover:-translate-y-1 duration-300;
+    @apply hover:shadow transform hover:-translate-y-1 duration-300 cursor-pointer;
   }
 } ;

@@ -13,8 +13,9 @@ import Home from "./pages/Home";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import Auth from "./pages/Auth";
+import Cards from "./pages/Cards";
+import MyCardList from "./pages/MyCardList";
 import CreateCard from "./pages/CreateCard";
-import AllCards from "./pages/AllCards";
 import EditCard from "./pages/EditCard";
 import ShuffleCards from "./pages/ShuffleCards";
 
@@ -54,7 +55,15 @@ const App = () => {
                 path="/cards/*"
                 element={
                   <ProtectedRoute>
-                    <AllCards />
+                    <Cards />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-cards"
+                element={
+                  <ProtectedRoute>
+                    <MyCardList />
                   </ProtectedRoute>
                 }
               />

@@ -1,14 +1,12 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 
 import CardList from "../components/Cards/CardList";
 import CardFilter from "../components/Cards/CardFilter";
 import CardSearch from "../components/Cards/CardSearch";
-import CreateCardButton from "../components/UI/CreateCardButton";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
 
-const AllCards = () => {
+const MyCardList = () => {
   const {
     data: loadedCards,
     error,
@@ -78,12 +76,8 @@ const AllCards = () => {
 
   return (
     <div className="section-container-wide center-col">
-      <CreateCardButton />
-      <Link to="/cards/shuffle">Shuffle Cards</Link>
-      <div className="spacer-sm" />
       <CardSearch onChange={searchInputChangeHandler} />
       <CardFilter onChange={filterValueChangeHandler} value={levels} />
-      <div className="spacer-sm" />
       {status === "pending" ? (
         <div>
           <h1>Loading...</h1>
@@ -91,10 +85,8 @@ const AllCards = () => {
       ) : (
         listContent
       )}
-      <div className="spacer-sm" />
-      <Link to="/home">Go back</Link>
     </div>
   );
 };
 
-export default AllCards;
+export default MyCardList;
