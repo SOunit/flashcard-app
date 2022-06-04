@@ -17,7 +17,6 @@ import Cards from "./pages/Cards";
 import MyCardList from "./pages/MyCardList";
 import CreateCard from "./pages/CreateCard";
 import EditCard from "./pages/EditCard";
-import ShuffleCards from "./pages/ShuffleCards";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser } = useContext(AuthContext);
@@ -72,14 +71,6 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <EditCard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/cards/shuffle"
-                element={
-                  <ProtectedRoute>
-                    <ShuffleCards />
                   </ProtectedRoute>
                 }
               />

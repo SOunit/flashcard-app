@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import PrimaryButton from "../components/UI/PrimaryButton";
+import Button from "../components/UI/Button";
 
 const EditCard = () => {
   const cardId = useParams().cid;
@@ -54,49 +54,58 @@ const EditCard = () => {
   };
 
   return (
-    <div className="section-container-wide center-col">
-      <div>
-        <TextField
-          id="outlined-basic"
-          label="front"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          value={front}
-          onChange={e => setFront(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="back"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          value={back}
-          onChange={e => setBack(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="example sentence"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          value={example}
-          onChange={e => setExample(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="comment"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-        />
-        <FormControl sx={{ width: 200, margin: "15px" }}>
+    <div className="WhiteContainer my-8 sm:my-10">
+      <div className="FlexColumn mb-5 w-full">
+        <h1 className="mb-8">Edit</h1>
+        <div className="FlexColumn sm:flex-row">
+          <TextField
+            id="outlined-basic"
+            label="front"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            value={front}
+            onChange={e => setFront(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="back"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            value={back}
+            onChange={e => setBack(e.target.value)}
+          />
+        </div>
+        <div className="FlexColumn sm:flex-row">
+          <TextField
+            id="outlined-basic"
+            label="example sentence"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            value={example}
+            onChange={e => setExample(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="comment"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+          />
+        </div>
+        <FormControl sx={{ width: 225, margin: "15px" }}>
           <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
           <Select
             labelId="demo-simple-select-autowidth-label"
@@ -113,9 +122,15 @@ const EditCard = () => {
           </Select>
         </FormControl>
       </div>
-      <div className="center-row">
-        <PrimaryButton onClick={updateHandler}>Save</PrimaryButton>
-        <Link to="/cards">Go back</Link>
+
+      <div className="FlexCenter">
+        <Button onClick={updateHandler} content="SAVE" />
+        <Link to="/my-cards">
+          <Button
+            content="CANCEL"
+            className="bg-accent bg-opacity-40 text-danger ml-2"
+          />
+        </Link>
       </div>
     </div>
   );

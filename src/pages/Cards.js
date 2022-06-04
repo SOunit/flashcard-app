@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
 
+import Bug from "../assets/icons/bug.png";
 import Menu from "../components/UI/Menu";
 import CardSwiper from "../components/Cards/CardSwiper";
 
@@ -45,8 +46,9 @@ const Cards = () => {
     <>
       <Menu onShuffle={shuffleCardsHandler} />
       {status === "pending" ? (
-        <div>
-          <h1>Loading...</h1>
+        <div className="FlexCenter my-10">
+          <h2>Loading...</h2>
+          <img src={Bug} />
         </div>
       ) : (
         <div>

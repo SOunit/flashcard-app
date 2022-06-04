@@ -3,7 +3,7 @@ import React from "react";
 import FlashCard from "./FlashCard";
 import SlideNextButton from "../UI/SlideNextButton";
 import SlidePrevButton from "../UI/SlidePrevButton";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -12,7 +12,7 @@ import "./CardSwiper.css";
 
 const CardSwiper = ({ cards }) => {
   return (
-    <div className="mb-10 relative z-0">
+    <div className="pb-10 relative z-0 h-80">
       <Swiper
         loop={true}
         loopFillGroupWithBlank={true}
@@ -20,7 +20,7 @@ const CardSwiper = ({ cards }) => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        <div className="flex justify-around absolute w-full z-10 -bottom-4">
+        <div className="flex justify-around absolute w-full z-10 bottom-0">
           <SlidePrevButton />
           <SlideNextButton />
         </div>

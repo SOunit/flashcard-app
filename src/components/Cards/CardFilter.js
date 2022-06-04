@@ -24,7 +24,7 @@ const levels = ["Critical", "High", "Normal", "Low"];
 const CardFilter = memo(({ onChange, value }) => {
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ mx: "10px", my: "5px", width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Level</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"

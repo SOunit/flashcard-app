@@ -8,6 +8,9 @@
   body {
     @apply bg-emerald-50 text-secondary font-quicksand;
   }
+  main {
+    @apply h-full
+  }
   h1 {
     @apply text-3xl sm:text-4xl font-bold tracking-wide;
   }
