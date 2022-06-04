@@ -19,29 +19,22 @@ const Header = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar sx={{ height: "1.5rem" }}>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            FLASH
-          </Typography>
-          <Typography
-            component="div"
-            sx={{ textAlign: "right", mx: 1, flexGrow: 1 }}
-          >
-            {authUser && authUser.email}
-          </Typography>
-          {authUser && (
-            <Button
-              color="inherit"
-              onClick={logoutHandler}
-              content="LOG OUT"
-              className="text-emerald-50"
-            ></Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <header className="bg-primary text-emerald-50 h-16 flex items-center justify-between px-3 py-2">
+      <h2 className="tracking-wider font-bold">
+        <a href="/">FLASH</a>
+      </h2>
+      <div className="FlexCenter">
+        <h4 className="text-right mx-1">{authUser && authUser.email}</h4>
+        {authUser && (
+          <Button
+            color="inherit"
+            onClick={logoutHandler}
+            content="LOG OUT"
+            className="text-emerald-50"
+          ></Button>
+        )}
+      </div>
+    </header>
   );
 };
 
