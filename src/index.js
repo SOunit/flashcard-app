@@ -7,15 +7,27 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Comfortaa", cursive`,
+    fontFamily: '"Quicksand", "sans-serif"',
   },
   palette: {
     primary: {
-      main: "#26a69a",
+      main: "#2a9d8f",
     },
     secondary: {
-      main: "#ffd54f",
+      main: "#264653",
     },
+    neutral: {
+      main: "#e9c46a",
+    },
+    accent: {
+      main: "#f4a261",
+    },
+    danger: {
+      main: "#e76f51",
+    },
+    white: {
+      main: "#fff"
+    }
   },
 });
 

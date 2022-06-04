@@ -4,8 +4,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { addUser, getUser } from "../api/user-api";
@@ -16,28 +14,24 @@ const dispatchMiddleware = dispatch => {
   return async action => {
     switch (action.type) {
       case "GET_USER":
-        {
-          try {
-            dispatch({ type: "SEND" });
-            const loadedUser = await getUser(action.payload);
-            dispatch({ type: "GET_USER", payload: loadedUser });
-            dispatch({ type: "SUCCESS" });
-          } catch (err) {
-            dispatch({ type: "ERROR", payload: err });
-          }
+        try {
+          dispatch({ type: "SEND" });
+          const loadedUser = await getUser(action.payload);
+          dispatch({ type: "GET_USER", payload: loadedUser });
+          dispatch({ type: "SUCCESS" });
+        } catch (err) {
+          dispatch({ type: "ERROR", payload: err });
         }
         break;
 
       case "ADD_USER":
-        {
-          try {
-            dispatch({ type: "SEND" });
-            const loadedUser = await addUser(action.payload);
-            dispatch({ type: "SET_USER", payload: loadedUser });
-            dispatch({ type: "SUCCESS" });
-          } catch (err) {
-            dispatch({ type: "ERROR", payload: err });
-          }
+        try {
+          dispatch({ type: "SEND" });
+          const loadedUser = await addUser(action.payload);
+          dispatch({ type: "SET_USER", payload: loadedUser });
+          dispatch({ type: "SUCCESS" });
+        } catch (err) {
+          dispatch({ type: "ERROR", payload: err });
         }
         break;
 
@@ -110,11 +104,6 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const googleSignIn = () => {
-    const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       console.log("Auth", currentUser);
@@ -134,7 +123,6 @@ export const AuthContextProvider = ({ children }) => {
         logIn,
         signUp,
         logOut,
-        googleSignIn,
         dispatch: dispatchMiddleware(dispatch),
         ...loginUserState,
       }}

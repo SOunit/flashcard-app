@@ -44,6 +44,9 @@
     ]
   },
   "devDependencies": {
-    "case-sensitive-paths-webpack-plugin": "^2.4.0"
+    "autoprefixer": "^10.4.7",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24"
   }
 }

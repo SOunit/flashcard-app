@@ -1,90 +1,65 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-* {
-  box-sizing: border-box;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-emerald-50 text-secondary font-quicksand;
+  }
+  main {
+    @apply h-full
+  }
+  h1 {
+    @apply text-3xl sm:text-4xl font-bold tracking-wide;
+  }
+  h2 {
+    @apply text-xl sm:text-2xl font-medium;
+  }
+  h3 {
+    @apply text-lg sm:text-xl font-medium;
+  }
+  h4 {
+    @apply text-base sm:text-lg font-medium;
+  }
+  h5 {
+    @apply text-sm sm:text-base font-normal;
+  }
+  p {
+    @apply text-sm font-light;
+  }
+  small {
+    @apply text-sm text-accent font-light;
+  }
+  button {
+    @apply text-sm sm:text-base xl:text-lg 2xl:text-xl font-semibold bg-emerald-300 bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-300 text-primary disabled:text-gray-500 rounded-full shadow-none hover:shadow transform hover:-translate-y-1 duration-300 cursor-pointer focus:outline-none py-1 px-4;
+  }
 }
 
-html {
-  font-family: "Comfortaa", cursive;
-}
-
-body {
-  margin: 0;
-  background: #e0f2f1;
-}
-
-main {
-  width: 95%;
-  margin: 2rem auto;
-}
-
-h1 {
-  font-size: 1.5rem;
-  margin: 12px 0;
-  padding: 0;
-  color: #26a69a;
-}
-
-h2 {
-  font-size: 1rem;
-  margin: 12px 0;
-  padding: 0;
-}
-
-p {
-  font-size: 1rem;
-  margin: 12px 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-  color: #606060;
-  margin: 0 1rem;
-}
-
-.section-container-wide {
-  margin: 0 auto;
-  max-width: 900px;
-  position: relative;
-  padding: 0 1rem;
-  text-align: center;
-  width: 100%;
-}
-
-.section-container {
-  margin: 0 auto;
-  max-width: 400px;
-  padding: 1rem;
-  height: auto;
-  width: calc(100% - 2rem);
-}
-
-.spacer-lg {
-  height: 32px;
-}
-
-.spacer-md {
-  height: 20px;
-}
-
-.spacer-sm {
-  height: 12px;
-}
-
-.center-col {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.center-row {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
+@layer component {
+  .FlexColumn {
+    @apply flex flex-col items-center justify-center;
+  }
+  .FlexCenter {
+    @apply flex items-center justify-center;
+  }
+  .FlexAlignCenter {
+    @apply flex items-center;
+  }
+  .FlexJustifyCenter {
+    @apply flex justify-center;
+  }
+  .FlexJustifyEnd {
+    @apply flex justify-end;
+  }
+  .WhiteContainer {
+    @apply bg-white rounded-lg p-10 mx-10 sm:mx-20 md:mx-28 lg:mx-40 xl:mx-80 my-20;
+  }
+  .Card {
+    @apply bg-white rounded-md p-6 sm:p-8 mx-10 mb-10 sm:mx-20 md:mx-28 lg:mx-40 xl:mx-80 cursor-pointer;
+  }
+  .Hover {
+    @apply hover:shadow transform hover:-translate-y-1 duration-300 cursor-pointer;
+  }
+} ;

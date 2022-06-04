@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import PrimaryButton from "../components/UI/PrimaryButton";
+import Button from "../components/UI/Button";
 
 const CreateCard = () => {
   const navigate = useNavigate();
@@ -50,46 +50,54 @@ const CreateCard = () => {
   };
 
   return (
-    <div className="section-container-wide center-col">
-      <h1>Create a new card!</h1>
-      <div>
-        <TextField
-          id="outlined-basic"
-          label="front"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          onChange={e => setFront(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="back"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          onChange={e => setBack(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="example sentence"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          onChange={e => setExample(e.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="comment"
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ width: 300, margin: "15px" }}
-          onChange={e => setComment(e.target.value)}
-        />
-        <FormControl sx={{ width: 200, margin: "15px" }}>
+    <div className="WhiteContainer my-8 sm:my-10">
+      <div className="FlexColumn mb-5 w-full">
+        <h1 className="mb-8">Create</h1>
+        <div className="FlexColumn sm:flex-row">
+          <TextField
+            id="outlined-basic"
+            label="front"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            onChange={e => setFront(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="back"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            onChange={e => setBack(e.target.value)}
+          />
+        </div>
+        <div className="FlexColumn sm:flex-row">
+          <TextField
+            id="outlined-basic"
+            label="example sentence"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            onChange={e => setExample(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="comment"
+            multiline
+            fullWidth
+            rows={4}
+            variant="outlined"
+            sx={{ margin: "15px" }}
+            onChange={e => setComment(e.target.value)}
+          />
+        </div>
+        <FormControl sx={{ width: 225, margin: "15px" }}>
           <InputLabel id="demo-simple-select-autowidth-label">Level</InputLabel>
           <Select
             labelId="demo-simple-select-autowidth-label"
@@ -106,9 +114,15 @@ const CreateCard = () => {
           </Select>
         </FormControl>
       </div>
-      <div className="center-row">
-        <PrimaryButton onClick={createNewCardHandler}>Create</PrimaryButton>
-        <Link to="/home">Go back</Link>
+
+      <div className="FlexCenter">
+        <Button onClick={createNewCardHandler} content="CREATE" />
+        <Link to="/my-cards">
+          <Button
+            content="CANCEL"
+            className="bg-accent bg-opacity-40 text-danger ml-2"
+          />
+        </Link>
       </div>
     </div>
   );

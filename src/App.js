@@ -9,19 +9,20 @@ import { AuthContextProvider } from "./context/auth-context";
 import { CardProvider } from "./context/card-context";
 import { AuthContext } from "./context/auth-context";
 
-import Header from "./components/Layout/Header";
 import Home from "./pages/Home";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
 import Auth from "./pages/Auth";
+import Cards from "./pages/Cards";
+import MyCardList from "./pages/MyCardList";
 import CreateCard from "./pages/CreateCard";
-import AllCards from "./pages/AllCards";
 import EditCard from "./pages/EditCard";
-import ShuffleCards from "./pages/ShuffleCards";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser } = useContext(AuthContext);
 
   if (!authUser) {
-    return <Navigate to="/auth" />;
+    return <Navigate to="/login" />;
   }
 
   return children;
@@ -35,15 +36,11 @@ const App = () => {
         <main>
           <Router>
             <Routes>
-              <Route path="/" element={<Navigate to="/auth" />} />
-              <Route path="/auth" element={<Auth />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Auth isLoginModeProp={true} />} />
               <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
+                path="/signup"
+                element={<Auth isLoginModeProp={false} />}
               />
               <Route
                 path="/new"
@@ -57,7 +54,15 @@ const App = () => {
                 path="/cards/*"
                 element={
                   <ProtectedRoute>
-                    <AllCards />
+                    <Cards />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/my-cards"
+                element={
+                  <ProtectedRoute>
+                    <MyCardList />
                   </ProtectedRoute>
                 }
               />
@@ -69,17 +74,10 @@ const App = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/cards/shuffle"
-                element={
-                  <ProtectedRoute>
-                    <ShuffleCards />
-                  </ProtectedRoute>
-                }
-              />
             </Routes>
           </Router>
         </main>
+        <Footer />
       </CardProvider>
     </AuthContextProvider>
   );

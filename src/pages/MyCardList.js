@@ -1,14 +1,15 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
+import Bug from "../assets/icons/bug.png";
 import CardList from "../components/Cards/CardList";
 import CardFilter from "../components/Cards/CardFilter";
 import CardSearch from "../components/Cards/CardSearch";
-import CreateCardButton from "../components/UI/CreateCardButton";
+import NoResultsFound from "../components/UI/NoResultsFound";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
 
-const AllCards = () => {
+const MyCardList = () => {
   const {
     data: loadedCards,
     error,
@@ -73,28 +74,39 @@ const AllCards = () => {
         card.back.includes(searchInput) ||
         card.comment.includes(searchInput)
     );
-    setListContent(<CardList cards={searchResult} />);
+
+    setListContent(
+      searchResult && searchResult.length === 0 ? (
+        <NoResultsFound />
+      ) : (
+        <CardList cards={searchResult} />
+      )
+    );
   }, [searchInput]);
 
   return (
-    <div className="section-container-wide center-col">
-      <CreateCardButton />
-      <Link to="/cards/shuffle">Shuffle Cards</Link>
-      <div className="spacer-sm" />
-      <CardSearch onChange={searchInputChangeHandler} />
-      <CardFilter onChange={filterValueChangeHandler} value={levels} />
-      <div className="spacer-sm" />
-      {status === "pending" ? (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      ) : (
-        listContent
-      )}
-      <div className="spacer-sm" />
-      <Link to="/home">Go back</Link>
-    </div>
+    <>
+      <div className="FlexColumn sm:flex-row my-10">
+        <CardSearch onChange={searchInputChangeHandler} />
+        <CardFilter onChange={filterValueChangeHandler} value={levels} />
+      </div>
+      <div className="overflow-y-scroll">
+        {status === "pending" ? (
+          <div className="FlexCenter my-10">
+            <h2>Loading...</h2>
+            <img src={Bug} />
+          </div>
+        ) : (
+          listContent
+        )}
+      </div>
+      <div className="text-center mb-10">
+        <Link to="/cards">
+          <h5>back to menu</h5>
+        </Link>
+      </div>
+    </>
   );
 };
 
-export default AllCards;
+export default MyCardList;
