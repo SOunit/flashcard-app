@@ -48,7 +48,7 @@ const Cards = () => {
       {status === "pending" ? (
         <div className="FlexCenter my-10">
           <h2>Loading...</h2>
-          <img src={Bug} />
+          <img src={Bug} className="h-12 w-auto ml-2" />
         </div>
       ) : (
         <div>
