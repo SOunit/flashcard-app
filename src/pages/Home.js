@@ -11,7 +11,7 @@ const Home = () => {
         <div className="FlexCenter flex-col text-center">
           <h1 className="text-emerald-50">Welcome to FLASH</h1>
           <img src={lightBulb} alt="lightbulb" className="my-3" />
-          <h2 className="text-emerald-50">Enlighten Yourself With New Words</h2>
+          <h2 className="text-emerald-50 mx-10">Enlighten Yourself With New Words</h2>
         </div>
       </div>
       <div className="FlexColumn my-8 md:my-12">
