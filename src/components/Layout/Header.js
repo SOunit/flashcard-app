@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/auth-context";
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "../UI/Button";
 
 const Header = () => {
@@ -21,7 +17,7 @@ const Header = () => {
   return (
     <header className="bg-primary text-emerald-50 h-16 flex items-center justify-between px-3 py-2">
       <h2 className="tracking-wider font-bold">
-        <a href="/">FLASH</a>
+        {authUser ? <a href="/cards">FLASH</a> : <a href="/">FLASH</a>}
       </h2>
       <div className="FlexCenter">
         <h4 className="text-right mx-1">{authUser && authUser.email}</h4>

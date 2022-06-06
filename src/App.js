@@ -43,14 +43,6 @@ const App = () => {
                 element={<Auth isLoginModeProp={false} />}
               />
               <Route
-                path="/new"
-                element={
-                  <ProtectedRoute>
-                    <CreateCard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="/cards/*"
                 element={
                   <ProtectedRoute>
@@ -63,6 +55,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <MyCardList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/new"
+                element={
+                  <ProtectedRoute>
+                    <CreateCard />
                   </ProtectedRoute>
                 }
               />
