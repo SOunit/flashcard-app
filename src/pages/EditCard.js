@@ -49,7 +49,7 @@ const EditCard = () => {
       payload: { id: cardId, data: updatedCard, uid: authUser.uid },
     });
     if (status === "completed") {
-      navigate("/cards");
+      navigate("/my-cards");
     }
   };
 

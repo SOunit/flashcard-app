@@ -6,6 +6,7 @@ import CardList from "../components/Cards/CardList";
 import CardFilter from "../components/Cards/CardFilter";
 import CardSearch from "../components/Cards/CardSearch";
 import NoResultsFound from "../components/UI/NoResultsFound";
+import NoCardsYet from "../components/UI/NoCardsYet";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
 
@@ -18,7 +19,7 @@ const MyCardList = () => {
   } = useContext(CardContext);
   const { authUser } = useContext(AuthContext);
   const [levels, setLevels] = useState([]);
-  const [listContent, setListContent] = useState();
+  const [content, setContent] = useState();
   const [searchInput, setSearchInput] = useState();
 
   const searchInputChangeHandler = useCallback(event => {
@@ -32,10 +33,7 @@ const MyCardList = () => {
     const {
       target: { value },
     } = event;
-    setLevels(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setLevels(typeof value === "string" ? value.split(",") : value);
   }, []);
 
   useEffect(() => {
@@ -46,26 +44,31 @@ const MyCardList = () => {
   }, [authUser]);
 
   if (error) {
-    setListContent({ error });
-  }
-
-  if (status === "completed" && (!loadedCards || loadedCards.length === 0)) {
-    setListContent(
-      <div>
-        <h1>No cards found</h1>
-      </div>
-    );
+    setContent({ error });
   }
 
   useEffect(() => {
-    setListContent(<CardList cards={loadedCards} />);
+    console.log(status);
+    if (status === "completed") {
+      console.log(loadedCards);
+      if (!loadedCards || loadedCards.length === 0) {
+        console.log("run if");
+        setContent(<NoCardsYet />);
+      } else {
+        console.log("run else");
+        setContent(<CardList cards={loadedCards} />);
+      }
+    }
+  }, [loadedCards, status]);
+
+  useEffect(() => {
     if (levels && levels.length > 0) {
       const filteredCards = loadedCards?.filter(card =>
         levels.includes(card.level)
       );
-      setListContent(<CardList cards={filteredCards} />);
+      setContent(<CardList cards={filteredCards} />);
     }
-  }, [levels, loadedCards]);
+  }, [levels]);
 
   useEffect(() => {
     const searchResult = loadedCards?.filter(
@@ -75,13 +78,11 @@ const MyCardList = () => {
         card.comment.includes(searchInput)
     );
 
-    setListContent(
-      searchResult && searchResult.length === 0 ? (
-        <NoResultsFound />
-      ) : (
-        <CardList cards={searchResult} />
-      )
-    );
+    if (searchResult && searchResult.length === 0) {
+      setContent(<NoResultsFound />);
+    } else {
+      setContent(<CardList cards={searchResult} />);
+    }
   }, [searchInput]);
 
   return (
@@ -97,7 +98,7 @@ const MyCardList = () => {
             <img src={Bug} className="h-12 w-auto ml-2" />
           </div>
         ) : (
-          listContent
+          content
         )}
       </div>
       <div className="text-center mb-10">

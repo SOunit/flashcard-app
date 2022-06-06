@@ -6,6 +6,7 @@ import { AuthContext } from "../context/auth-context";
 import Bug from "../assets/icons/bug.png";
 import Menu from "../components/UI/Menu";
 import CardSwiper from "../components/Cards/CardSwiper";
+import NoCardsYet from "../components/UI/NoCardsYet";
 
 const Cards = () => {
   const {
@@ -42,19 +43,24 @@ const Cards = () => {
     setCards(loadedCards);
   }, [loadedCards]);
 
+  let content;
+  if (status === "pending") {
+    content = (
+      <div className="FlexCenter my-10">
+        <h2>Loading...</h2>
+        <img src={Bug} className="h-12 w-auto ml-2" />
+      </div>
+    );
+  } else if (cards && cards.length > 0) {
+    content = <CardSwiper cards={cards} />;
+  } else {
+    content = <NoCardsYet />;
+  }
+
   return (
     <>
       <Menu onShuffle={shuffleCardsHandler} />
-      {status === "pending" ? (
-        <div className="FlexCenter my-10">
-          <h2>Loading...</h2>
-          <img src={Bug} className="h-12 w-auto ml-2" />
-        </div>
-      ) : (
-        <div>
-          <CardSwiper cards={cards} />
-        </div>
-      )}
+      {content}
     </>
   );
 };

@@ -46,7 +46,7 @@ const CreateCard = () => {
     setComment("");
     setLevel("");
 
-    navigate("/cards");
+    navigate("/my-cards");
   };
 
   return (
