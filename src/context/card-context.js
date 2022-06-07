@@ -10,8 +10,10 @@ import {
 
 export const CardContext = createContext();
 
-const dispatchMiddleware = dispatch => {
-  return async action => {
+const dispatchMiddleware = (dispatch) => {
+  return async (action) => {
+    console.log("dispatchMiddleware action", action);
+
     switch (action.type) {
       case "GET_ALL_CARDS": {
         try {
@@ -30,7 +32,7 @@ const dispatchMiddleware = dispatch => {
           dispatch({ type: "SEND" });
           const loadedUserCards = await getUserCards(action.payload);
           dispatch({ ...action, payload: loadedUserCards });
-          dispatch({ type: "SUCCESS" });
+          // dispatch({ type: "SUCCESS" });
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
         }
@@ -53,8 +55,11 @@ const dispatchMiddleware = dispatch => {
         try {
           dispatch({ type: "SEND" });
           await addCard(action.payload.cardData);
-          const loadedCards = await getUserCards(action.payload.uid);
-          dispatch({ type: "GET_USER_CARDS", payload: loadedCards });
+
+          // // FIXME: do you need it? yes, but should not here
+          // const loadedCards = await getUserCards(action.payload.uid);
+          // dispatch({ type: "GET_USER_CARDS", payload: loadedCards });
+
           dispatch({ type: "SUCCESS" });
         } catch (err) {
           dispatch({ type: "ERROR", payload: err });
@@ -94,7 +99,7 @@ const dispatchMiddleware = dispatch => {
 };
 
 const cardReducer = (state, action) => {
-  console.log(action.type);
+  console.log("action", action);
   switch (action.type) {
     case "GET_ALL_CARDS":
       return {
@@ -106,6 +111,7 @@ const cardReducer = (state, action) => {
       return {
         ...state,
         data: action.payload,
+        status: "completed",
       };
 
     case "GET_SINGLE_CARD":
@@ -117,7 +123,7 @@ const cardReducer = (state, action) => {
     case "DELETE_CARD":
       return {
         ...state,
-        data: state.data.filter(item => item.id !== action.payload),
+        data: state.data.filter((item) => item.id !== action.payload),
         status: "deleted",
       };
 

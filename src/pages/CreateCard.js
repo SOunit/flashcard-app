@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CardContext } from "../context/card-context";
 import { AuthContext } from "../context/auth-context";
@@ -9,11 +9,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "../components/UI/Button";
+import { getUserCards } from "../api/card-api";
 
 const CreateCard = () => {
   const navigate = useNavigate();
-  const { dispatch } = useContext(CardContext);
+  const { status, dispatch } = useContext(CardContext);
   const { authUser } = useContext(AuthContext);
+  const [tryCreate, setTryCreate] = useState(false);
 
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
@@ -32,8 +34,12 @@ const CreateCard = () => {
     userId: loginUserId,
   };
 
-  const createNewCardHandler = e => {
+  console.log("status", status);
+
+  const createNewCardHandler = (e) => {
     e.preventDefault();
+
+    setTryCreate(true);
 
     dispatch({
       type: "ADD_CARD",
@@ -46,8 +52,17 @@ const CreateCard = () => {
     setComment("");
     setLevel("");
 
-    navigate("/my-cards");
+    // fixme
+    // navigate("/my-cards");
   };
+
+  useEffect(() => {
+    if (tryCreate && status === "completed") {
+      console.log("DON!!!");
+
+      navigate("/my-cards");
+    }
+  }, [tryCreate, status, navigate]);
 
   return (
     <div className="WhiteContainer my-8 sm:my-10">
@@ -62,7 +77,7 @@ const CreateCard = () => {
             rows={4}
             variant="outlined"
             sx={{ margin: "15px" }}
-            onChange={e => setFront(e.target.value)}
+            onChange={(e) => setFront(e.target.value)}
           />
           <TextField
             id="outlined-basic"
@@ -72,7 +87,7 @@ const CreateCard = () => {
             rows={4}
             variant="outlined"
             sx={{ margin: "15px" }}
-            onChange={e => setBack(e.target.value)}
+            onChange={(e) => setBack(e.target.value)}
           />
         </div>
         <div className="FlexColumn sm:flex-row">
@@ -84,7 +99,7 @@ const CreateCard = () => {
             rows={4}
             variant="outlined"
             sx={{ margin: "15px" }}
-            onChange={e => setExample(e.target.value)}
+            onChange={(e) => setExample(e.target.value)}
           />
           <TextField
             id="outlined-basic"
@@ -94,7 +109,7 @@ const CreateCard = () => {
             rows={4}
             variant="outlined"
             sx={{ margin: "15px" }}
-            onChange={e => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
           />
         </div>
         <FormControl sx={{ width: 225, margin: "15px" }}>
@@ -103,7 +118,7 @@ const CreateCard = () => {
             labelId="demo-simple-select-autowidth-label"
             id="demo-simple-select-autowidth"
             value={level}
-            onChange={e => setLevel(e.target.value)}
+            onChange={(e) => setLevel(e.target.value)}
             autoWidth
             label="Level"
           >

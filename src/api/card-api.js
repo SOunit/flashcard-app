@@ -23,12 +23,18 @@ export const getCards = async () => {
   return loadedCards;
 };
 
-export const getUserCards = async userId => {
+export const getUserCards = async (userId) => {
+  // FIXME: get userCards from firebase
   const loadedCards = await getCards();
-  return loadedCards.filter(card => card.userId === userId);
+  console.log("getUserCards loadedCards", loadedCards);
+
+  return loadedCards.filter((card) => {
+    console.log(card.userId === userId, card.userId, userId);
+    return card.userId === userId;
+  });
 };
 
-export const getSingleCard = async cardId => {
+export const getSingleCard = async (cardId) => {
   const response = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`);
   const data = await response.json();
 
@@ -44,7 +50,7 @@ export const getSingleCard = async cardId => {
   return loadedCard;
 };
 
-export const addCard = async cardData => {
+export const addCard = async (cardData) => {
   const response = await fetch(`${FIREBASE_DOMAIN}/cards.json`, {
     method: "POST",
     body: JSON.stringify(cardData),
@@ -61,7 +67,7 @@ export const addCard = async cardData => {
   return data;
 };
 
-export const deleteCard = async cardId => {
+export const deleteCard = async (cardId) => {
   const response = await fetch(`${FIREBASE_DOMAIN}/cards/${cardId}/.json`, {
     method: "DELETE",
     body: JSON.stringify(cardId),

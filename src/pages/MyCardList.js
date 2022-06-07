@@ -17,19 +17,26 @@ const MyCardList = () => {
     status,
     dispatch,
   } = useContext(CardContext);
+  // const cardCtx = useContext(CardContext);
   const { authUser } = useContext(AuthContext);
   const [levels, setLevels] = useState([]);
   const [content, setContent] = useState();
   const [searchInput, setSearchInput] = useState();
+  const [isDataInitialized, setIsDataInitialized] = useState(false);
 
-  const searchInputChangeHandler = useCallback(event => {
+  // {} => {...}
+  // console.log("authUser", authUser);
+
+  // const dispatch = useCallback(cardCtx.dispatch, []);
+
+  const searchInputChangeHandler = useCallback((event) => {
     const {
       target: { value },
     } = event;
     setSearchInput(value);
   }, []);
 
-  const filterValueChangeHandler = useCallback(event => {
+  const filterValueChangeHandler = useCallback((event) => {
     const {
       target: { value },
     } = event;
@@ -37,20 +44,21 @@ const MyCardList = () => {
   }, []);
 
   useEffect(() => {
-    if (authUser.uid) {
+    if (!isDataInitialized && authUser.uid) {
       const loginUserId = authUser.uid;
       dispatch({ type: "GET_USER_CARDS", payload: loginUserId });
+      setIsDataInitialized(true);
     }
-  }, [authUser]);
+  }, [authUser, isDataInitialized, setIsDataInitialized]);
 
   if (error) {
     setContent({ error });
   }
 
   useEffect(() => {
-    console.log(status);
+    console.log("status", status);
     if (status === "completed") {
-      console.log(loadedCards);
+      console.log("loadedCards", loadedCards);
       if (!loadedCards || loadedCards.length === 0) {
         console.log("run if");
         setContent(<NoCardsYet />);
@@ -63,7 +71,7 @@ const MyCardList = () => {
 
   useEffect(() => {
     if (levels && levels.length > 0) {
-      const filteredCards = loadedCards?.filter(card =>
+      const filteredCards = loadedCards?.filter((card) =>
         levels.includes(card.level)
       );
       setContent(<CardList cards={filteredCards} />);
@@ -72,7 +80,7 @@ const MyCardList = () => {
 
   useEffect(() => {
     const searchResult = loadedCards?.filter(
-      card =>
+      (card) =>
         card.front.includes(searchInput) ||
         card.back.includes(searchInput) ||
         card.comment.includes(searchInput)
